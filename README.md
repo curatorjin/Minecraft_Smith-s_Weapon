@@ -1,4 +1,4 @@
-# Minecraft_Smith-s_Weapon
+# Minecraft Smith's Weapon
 Minecraft1.7.10武器模组
 - 新矿物
   - 材料矿物
