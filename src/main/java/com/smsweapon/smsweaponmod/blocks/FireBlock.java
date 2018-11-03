@@ -4,9 +4,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 
-public class FireBlock extends Block {
 
-    public FireBlock(){
+/**
+ * 烈焰岩·方块
+ *
+ * @author 0newing
+ * @version 1.0
+ */
+public class FireBlock extends Block
+{
+
+    public FireBlock()
+    {
         super(Material.iron);
         this.setCreativeTab(CreativeTabs.tabBlock);
         this.setBlockName("fireBlock");
