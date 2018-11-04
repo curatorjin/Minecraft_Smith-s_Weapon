@@ -1,8 +1,8 @@
-package com.smsweapon.smsweaponmod.items.moulds.impl;
+package cn.curatorjin.smsweapon.smsweaponmod.items.moulds.impl;
 
-import com.smsweapon.smsweaponmod.SmithsWeapon;
-import com.smsweapon.smsweaponmod.items.moulds.Mould;
-import com.smsweapon.smsweaponmod.items.weapons.Weapon;
+import cn.curatorjin.smsweapon.smsweaponmod.SmithsWeapon;
+import cn.curatorjin.smsweapon.smsweaponmod.items.moulds.Mould;
+import cn.curatorjin.smsweapon.smsweaponmod.items.weapons.Weapon;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

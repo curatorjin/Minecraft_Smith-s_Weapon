@@ -1,6 +1,6 @@
-package com.smsweapon.smsweaponmod.items.moulds;
+package cn.curatorjin.smsweapon.smsweaponmod.items.moulds;
 
-import com.smsweapon.smsweaponmod.items.weapons.Weapon;
+import cn.curatorjin.smsweapon.smsweaponmod.items.weapons.Weapon;
 import net.minecraft.item.ItemStack;
 
 

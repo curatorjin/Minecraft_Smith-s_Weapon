@@ -1,9 +1,9 @@
-package com.smsweapon.smsweaponmod;
+package cn.curatorjin.smsweapon.smsweaponmod;
 
-import com.smsweapon.smsweaponmod.blocks.FireBlock;
-import com.smsweapon.smsweaponmod.items.materials.impl.FireDust;
-import com.smsweapon.smsweaponmod.items.moulds.impl.SwordMould;
-import com.smsweapon.smsweaponmod.items.weapons.impl.FireSword;
+import cn.curatorjin.smsweapon.smsweaponmod.blocks.FireBlock;
+import cn.curatorjin.smsweapon.smsweaponmod.items.materials.impl.FireDust;
+import cn.curatorjin.smsweapon.smsweaponmod.items.moulds.impl.SwordMould;
+import cn.curatorjin.smsweapon.smsweaponmod.items.weapons.impl.FireSword;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
