@@ -1,4 +1,4 @@
-package cn.curatorjin.smsweapon.smsweaponmod.blocks;
+package cn.curatorjin.smsweapon.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

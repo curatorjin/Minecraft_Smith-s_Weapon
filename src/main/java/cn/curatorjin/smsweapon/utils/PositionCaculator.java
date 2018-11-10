@@ -1,6 +1,6 @@
-package cn.curatorjin.smsweapon.smsweaponmod.utils;
+package cn.curatorjin.smsweapon.utils;
 
-import cn.curatorjin.smsweapon.smsweaponmod.beans.Position;
+import cn.curatorjin.smsweapon.beans.Position;
 
 
 /**

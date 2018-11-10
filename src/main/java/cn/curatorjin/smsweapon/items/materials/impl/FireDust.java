@@ -1,4 +1,4 @@
-package cn.curatorjin.smsweapon.smsweaponmod.items.materials.impl;
+package cn.curatorjin.smsweapon.items.materials.impl;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

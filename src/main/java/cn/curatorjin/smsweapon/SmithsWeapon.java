@@ -1,9 +1,9 @@
-package cn.curatorjin.smsweapon.smsweaponmod;
+package cn.curatorjin.smsweapon;
 
-import cn.curatorjin.smsweapon.smsweaponmod.blocks.FireBlock;
-import cn.curatorjin.smsweapon.smsweaponmod.items.materials.impl.FireDust;
-import cn.curatorjin.smsweapon.smsweaponmod.items.moulds.impl.SwordMould;
-import cn.curatorjin.smsweapon.smsweaponmod.items.weapons.impl.FireSword;
+import cn.curatorjin.smsweapon.blocks.FireBlock;
+import cn.curatorjin.smsweapon.items.materials.impl.FireDust;
+import cn.curatorjin.smsweapon.items.moulds.impl.SwordMould;
+import cn.curatorjin.smsweapon.items.weapons.impl.sword.FireSword;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -18,14 +18,14 @@ import net.minecraft.item.ItemStack;
  * @author 0newing
  * @version 1.0
  */
-@Mod(modid = "smsweaponmod", name = "Smith's Weapon", version = "1.0.0")
+@Mod(modid = "smsweapon", name = "Smith's Weapon", version = "1.0.0")
 public class SmithsWeapon
 {
 
     /**
      * MOD_ID
      */
-    private static final String MODID = "smsweaponmod";
+    private static final String MODID = "smsweapon";
 
     /**
      * 烈焰岩
@@ -56,17 +56,20 @@ public class SmithsWeapon
     public void preLoad(FMLPreInitializationEvent event)
     {
 
+        //物品声明
         FIRE_BLOCK = new FireBlock();
         FIRE_DUST = new FireDust();
         SWORD_MOULD = new SwordMould();
         FIRE_SWORD = new FireSword();
 
+        //物品注册
         GameRegistry.registerBlock(FIRE_BLOCK, FIRE_BLOCK.getUnlocalizedName().substring(5));
         GameRegistry.registerItem(FIRE_DUST, FIRE_DUST.getUnlocalizedName().substring(5));
         GameRegistry.registerItem(SWORD_MOULD, SWORD_MOULD.getUnlocalizedName().substring(5));
         GameRegistry.registerItem(FIRE_SWORD, FIRE_SWORD.getUnlocalizedName().substring(5));
 
-        GameRegistry.addSmelting(FIRE_BLOCK, new ItemStack(FIRE_DUST, 1), 50f);     //冶炼公式
+        //冶炼公式注册
+        GameRegistry.addSmelting(FIRE_BLOCK, new ItemStack(FIRE_DUST, 1), 50f);
     }
 
     /**

@@ -1,8 +1,8 @@
-package cn.curatorjin.smsweapon.smsweaponmod.items.moulds.impl;
+package cn.curatorjin.smsweapon.items.moulds.impl;
 
-import cn.curatorjin.smsweapon.smsweaponmod.SmithsWeapon;
-import cn.curatorjin.smsweapon.smsweaponmod.items.moulds.Mould;
-import cn.curatorjin.smsweapon.smsweaponmod.items.weapons.Weapon;
+import cn.curatorjin.smsweapon.SmithsWeapon;
+import cn.curatorjin.smsweapon.items.moulds.Mould;
+import cn.curatorjin.smsweapon.items.weapons.Weapon;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,7 +25,7 @@ public class SwordMould extends Item implements Mould
     }
 
     @Override
-    public Weapon synthetic(ItemStack itemStack)
+    public Weapon synthetic(ItemStack... itemStack)
     {
         return SmithsWeapon.getFireSword();
     }

@@ -1,6 +1,6 @@
-package cn.curatorjin.smsweapon.smsweaponmod.items.weapons;
+package cn.curatorjin.smsweapon.items.weapons;
 
-import cn.curatorjin.smsweapon.smsweaponmod.items.moulds.Mould;
+import cn.curatorjin.smsweapon.items.moulds.Mould;
 
 
 /**

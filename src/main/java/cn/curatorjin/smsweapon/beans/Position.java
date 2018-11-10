@@ -6,7 +6,7 @@
  * 时间: 2018/11/3  18:53
  *
  */
-package cn.curatorjin.smsweapon.smsweaponmod.beans;
+package cn.curatorjin.smsweapon.beans;
 
 /**
  * 坐标

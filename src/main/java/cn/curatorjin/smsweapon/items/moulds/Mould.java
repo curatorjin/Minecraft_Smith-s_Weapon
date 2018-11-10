@@ -1,6 +1,6 @@
-package cn.curatorjin.smsweapon.smsweaponmod.items.moulds;
+package cn.curatorjin.smsweapon.items.moulds;
 
-import cn.curatorjin.smsweapon.smsweaponmod.items.weapons.Weapon;
+import cn.curatorjin.smsweapon.items.weapons.Weapon;
 import net.minecraft.item.ItemStack;
 
 
@@ -17,5 +17,5 @@ public interface Mould
      * @param itemStack 铸造所需的材料
      * @return 合成的武器
      */
-    Weapon synthetic(ItemStack itemStack);
+    Weapon synthetic(ItemStack... itemStack);
 }
