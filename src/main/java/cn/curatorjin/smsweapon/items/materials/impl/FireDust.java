@@ -1,6 +1,6 @@
 package cn.curatorjin.smsweapon.items.materials.impl;
 
-import net.minecraft.creativetab.CreativeTabs;
+import cn.curatorjin.smsweapon.SmithsWeapon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,7 @@ public class FireDust extends Item
         super();
         this.setUnlocalizedName("fireDust");
         this.setTextureName("smsweaponmod:fireDust");
-        this.setCreativeTab(CreativeTabs.tabMaterials);
+        this.setCreativeTab(SmithsWeapon.getSmithsWeaponTab());
     }
 
     @Override

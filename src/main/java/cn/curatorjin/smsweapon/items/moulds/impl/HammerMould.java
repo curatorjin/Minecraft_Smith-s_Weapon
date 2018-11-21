@@ -8,9 +8,9 @@
  */
 package cn.curatorjin.smsweapon.items.moulds.impl;
 
+import cn.curatorjin.smsweapon.SmithsWeapon;
 import cn.curatorjin.smsweapon.items.moulds.Mould;
 import cn.curatorjin.smsweapon.items.weapons.Weapon;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -28,7 +28,7 @@ public class HammerMould extends Item implements Mould
         super();
         this.setUnlocalizedName("hammerMould");
         this.setTextureName("smsweaponmod:hammerMould");
-        this.setCreativeTab(CreativeTabs.tabMisc);
+        this.setCreativeTab(SmithsWeapon.getSmithsWeaponTab());
     }
 
     @Override

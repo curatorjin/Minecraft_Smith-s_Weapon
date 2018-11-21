@@ -1,9 +1,9 @@
 package cn.curatorjin.smsweapon.items.weapons.impl.sword;
 
+import cn.curatorjin.smsweapon.SmithsWeapon;
 import cn.curatorjin.smsweapon.items.SmsItems;
 import cn.curatorjin.smsweapon.items.moulds.Mould;
 import cn.curatorjin.smsweapon.items.weapons.Weapon;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -34,7 +34,7 @@ public class FireSword extends Item implements Weapon
         itemStack = new ItemStack(SmsItems.getFireDust(), 1);
         this.setUnlocalizedName("fireSword");
         this.setTextureName("smsweaponmod:fireSword");
-        this.setCreativeTab(CreativeTabs.tabCombat);
+        this.setCreativeTab(SmithsWeapon.getSmithsWeaponTab());
     }
 
     public Mould getMould()

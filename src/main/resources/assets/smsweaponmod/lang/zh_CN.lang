@@ -1,4 +1,5 @@
 tile.fireBlock.name=烈焰岩
+tile.smithTable.name=Smith工作台
 
 item.fireDust.name=烈焰结晶
 item.fireDust.desc0=仍然能感觉到温度
@@ -11,3 +12,5 @@ item.spearMould.name=枪模具
 item.hammerMould.name=锤模具
 item.daggerMould.name=匕首模具
 item.wandMould.name=杖模具
+
+itemGroup.Smith's Weapon=Smith的武器

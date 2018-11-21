@@ -8,6 +8,8 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 
 
 /**
@@ -25,6 +27,11 @@ public class SmithsWeapon
      */
     private static final String MODID = "smsweapon";
 
+    public static String getMODID()
+    {
+        return MODID;
+    }
+
     /**
      * Mod实例
      */
@@ -34,6 +41,16 @@ public class SmithsWeapon
     public SmithsWeapon()
     {
         INSTANCE = this;
+    }
+
+    /**
+     * 分页
+     */
+    private static SmithsWeaponTab SMITHS_WEAPON_TAB = new SmithsWeaponTab("Smith's Weapon");
+
+    public static SmithsWeaponTab getSmithsWeaponTab()
+    {
+        return SMITHS_WEAPON_TAB;
     }
 
     /**
@@ -75,5 +92,22 @@ public class SmithsWeapon
     public static SmithsWeapon getINSTANCE()
     {
         return INSTANCE;
+    }
+
+    /**
+     * 创造模式分页
+     */
+    private static class SmithsWeaponTab extends CreativeTabs
+    {
+        SmithsWeaponTab(String label)
+        {
+            super(label);
+        }
+
+        @Override
+        public Item getTabIconItem()
+        {
+            return SmsItems.getSwordMould();
+        }
     }
 }

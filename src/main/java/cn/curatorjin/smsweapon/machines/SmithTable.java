@@ -9,9 +9,13 @@
 package cn.curatorjin.smsweapon.machines;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
+import cn.curatorjin.smsweapon.entity.TileEntitySmithTable;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 
@@ -21,20 +25,61 @@ import net.minecraft.world.World;
  * @author : 0newing
  * @version : 1.0
  */
-public class SmithTable extends Block
+public class SmithTable extends BlockContainer
 {
 
-    public SmithTable()
+    SmithTable()
     {
         super(Material.iron);
+
+        this.setCreativeTab(SmithsWeapon.getSmithsWeaponTab());
+        this.setBlockName("smithTable");
+        this.setBlockTextureName("smsweaponmod:smithTable");
+
+        setHardness(5.0f);
+        setResistance(10.0f);
+        setLightLevel(0f);
+        setHarvestLevel("pickaxe", 1);
+        setStepSound(Block.soundTypeStone);
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+    {
+        return null;
+    }
+
+    @Override
+    public void onBlockAdded(World world, int x, int y, int z)
+    {
+        super.onBlockAdded(world, x, y, z);
+
     }
 
     @Override
     public boolean onBlockActivated(World world, int x, int y,
-                                    int z, EntityPlayer player, int p_149727_6_,
-                                    float p_149727_7_, float p_149727_8_, float p_149727_9_)
+                                    int z, EntityPlayer player, int side,
+                                    float blockX, float blockY, float blockZ)
     {
-        player.openGui(SmithsWeapon.getINSTANCE(),1,world,x,y,z);
+        if (!world.isRemote)
+        {
+            TileEntitySmithTable entitySmithTable = (TileEntitySmithTable)world.getTileEntity(x, y,
+                z);
+        }
         return true;
+    }
+
+    @Override
+    public void onBlockDestroyedByPlayer(World world, int x, int y,
+                                         int z, int metaData)
+    {
+        super.onBlockDestroyedByPlayer(world, x, y, z, metaData);
+    }
+
+    @Override
+    public void onBlockDestroyedByExplosion(World world, int x, int y,
+                                            int z, Explosion explosion)
+    {
+        super.onBlockDestroyedByExplosion(world, x, y, z, explosion);
     }
 }

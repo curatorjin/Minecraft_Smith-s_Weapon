@@ -47,15 +47,25 @@ public class SmsItems
     {
 
         //物品声明
-
+        //材料
         FIRE_DUST = new FireDust();
-        SWORD_MOULD = new SwordMould();
+
+        //武器
         FIRE_SWORD = new FireSword();
 
+        //模具
+        SWORD_MOULD = new SwordMould();
+
+
         //物品注册
+        //材料
         registerSmsItem(FIRE_DUST);
-        registerSmsItem(SWORD_MOULD);
+
+        //武器
         registerSmsItem(FIRE_SWORD);
+
+        //模具
+        registerSmsItem(SWORD_MOULD);
     }
 
     /**
