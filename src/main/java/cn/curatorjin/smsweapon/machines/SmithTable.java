@@ -9,7 +9,6 @@
 package cn.curatorjin.smsweapon.machines;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
-import cn.curatorjin.smsweapon.entity.TileEntitySmithTable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
