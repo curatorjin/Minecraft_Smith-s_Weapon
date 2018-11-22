@@ -8,6 +8,8 @@
  */
 package cn.curatorjin.smsweapon.entity;
 
+import cn.curatorjin.smsweapon.beans.BlockSide;
+import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -24,6 +26,11 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
 {
 
     /**
+     * 工作台内含物品
+     */
+    private ItemStack[] smithTableContent = new ItemStack[5];
+
+    /**
      * 某个面可以访问到的物品槽索引数组
      *
      * @param side 访问的面
@@ -31,34 +38,37 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side)
     {
-        return new int[0];
+        return new int[]{0,1,2,3,4};
     }
 
     /**
-     * 判断是否可以从某个面向某个物品槽自动输入(漏斗)
-     * 给定的物品
+     * 判断是否可以从某个面向某个物品槽自动输入(漏斗)给定的物品
      *
-     * @param slot 物品槽
+     * @param slot      物品槽
      * @param itemStack 物品
-     * @param side 面
+     * @param side      面
      */
     @Override
     public boolean canInsertItem(int slot, ItemStack itemStack, int side)
     {
+        if (side == BlockSide.BOTTOM.getCode())
+        {
+            return false;
+        }
         return false;
     }
 
     /**
      * 判断实体的某一个面是否可以用指定的物品槽输出指定的物品
      *
-     * @param slot 物品槽
+     * @param slot      物品槽
      * @param itemStack 物品
-     * @param side 面
+     * @param side      面
      */
     @Override
     public boolean canExtractItem(int slot, ItemStack itemStack, int side)
     {
-        return false;
+        return (side != BlockSide.TOP.getCode() && slot == SmithTableSlotType.MOULD.getIndex());
     }
 
     /**
@@ -78,19 +88,27 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
     @Override
     public ItemStack getStackInSlot(int index)
     {
-        return null;
+        return smithTableContent[index];
     }
 
     /**
      * 将某个物品槽内的物品移除掉一部分并返回
      *
-     * @param slot 物品槽
+     * @param slot   物品槽
      * @param number 数量
      */
     @Override
     public ItemStack decrStackSize(int slot, int number)
     {
-        return null;
+        ItemStack itemStack = getStackInSlot(slot);
+        int originSize = itemStack.stackSize;
+        if (number > originSize)
+        {
+            number = itemStack.stackSize;
+        }
+        itemStack.stackSize = originSize - number;
+        setInventorySlotContents(slot,itemStack);
+        return new ItemStack(itemStack.getItem(),number);
     }
 
     /**
@@ -107,13 +125,13 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
     /**
      * 将指定的物品槽设为指定物品
      *
-     * @param slot 物品槽
+     * @param slot      物品槽
      * @param itemStack 指定物品
      */
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemStack)
     {
-
+        smithTableContent[slot] = itemStack;
     }
 
     /**
@@ -140,7 +158,7 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
     @Override
     public int getInventoryStackLimit()
     {
-        return 0;
+        return 16;
     }
 
     /**
@@ -169,7 +187,7 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
     /**
      * 判断是否能无视容量向一个物品槽自动输入物品
      *
-     * @param slot 物品槽
+     * @param slot      物品槽
      * @param itemStack 物品
      */
     @Override
