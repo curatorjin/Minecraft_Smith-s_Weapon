@@ -1,6 +1,7 @@
 package cn.curatorjin.smsweapon;
 
 import cn.curatorjin.smsweapon.blocks.SmsBlocks;
+import cn.curatorjin.smsweapon.entity.SmsEntity;
 import cn.curatorjin.smsweapon.items.SmsItems;
 import cn.curatorjin.smsweapon.items.SmsRecipes;
 import cn.curatorjin.smsweapon.machines.SmsMachines;
@@ -65,6 +66,7 @@ public class SmithsWeapon
         SmsItems.registerSmsItems();
         SmsMachines.registerSmsMachines();
         SmsRecipes.registerSmsRecipes();
+        SmsEntity.registerAllEntities();
     }
 
     /**

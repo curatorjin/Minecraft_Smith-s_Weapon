@@ -6,14 +6,14 @@
  * 时间: 2018/11/21  22:35
  *
  */
-package cn.curatorjin.smsweapon.entity;
+package cn.curatorjin.smsweapon.entity.tile.impl;
 
 import cn.curatorjin.smsweapon.beans.BlockSide;
 import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
+import cn.curatorjin.smsweapon.entity.tile.SmsTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 
 /**
@@ -22,8 +22,13 @@ import net.minecraft.tileentity.TileEntity;
  * @author : 0newing
  * @version : 1.0
  */
-public class TileEntitySmithTable extends TileEntity implements ISidedInventory
+public class TileEntitySmithTable extends SmsTileEntity implements ISidedInventory
 {
+
+    /**
+     * 实例
+     */
+    private static TileEntitySmithTable INSTANCE;
 
     /**
      * 工作台内含物品
@@ -38,7 +43,7 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side)
     {
-        return new int[]{0,1,2,3,4};
+        return new int[] {0, 1, 2, 3, 4};
     }
 
     /**
@@ -107,8 +112,8 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
             number = itemStack.stackSize;
         }
         itemStack.stackSize = originSize - number;
-        setInventorySlotContents(slot,itemStack);
-        return new ItemStack(itemStack.getItem(),number);
+        setInventorySlotContents(slot, itemStack);
+        return new ItemStack(itemStack.getItem(), number);
     }
 
     /**
@@ -194,5 +199,30 @@ public class TileEntitySmithTable extends TileEntity implements ISidedInventory
     public boolean isItemValidForSlot(int slot, ItemStack itemStack)
     {
         return false;
+    }
+
+    /**
+     * 获取ID
+     *
+     * @return 实体ID
+     */
+    @Override
+    public String getID()
+    {
+        return "SmithTableEntity";
+    }
+
+    /**
+     * 获取当前实例
+     *
+     * @return 当前实例
+     */
+    public static TileEntitySmithTable getInstance()
+    {
+        if (INSTANCE == null)
+        {
+            INSTANCE = new TileEntitySmithTable();
+        }
+        return INSTANCE;
     }
 }

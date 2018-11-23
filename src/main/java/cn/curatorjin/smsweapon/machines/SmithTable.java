@@ -9,6 +9,7 @@
 package cn.curatorjin.smsweapon.machines;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
+import cn.curatorjin.smsweapon.entity.tile.impl.TileEntitySmithTable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -62,6 +63,12 @@ public class SmithTable extends BlockContainer
     {
         System.out.println(side);
         return true;
+    }
+
+    @Override
+    public TileEntity createTileEntity(World world, int metadata)
+    {
+        return new TileEntitySmithTable();
     }
 
     @Override
