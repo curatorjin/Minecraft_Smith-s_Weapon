@@ -8,9 +8,10 @@
  */
 package cn.curatorjin.smsweapon.entity.tile.impl;
 
+import cn.curatorjin.smsweapon.anno.SmsTileEntity;
 import cn.curatorjin.smsweapon.beans.BlockSide;
 import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
-import cn.curatorjin.smsweapon.entity.tile.SmsTileEntity;
+import cn.curatorjin.smsweapon.entity.tile.SmithsTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -22,7 +23,8 @@ import net.minecraft.item.ItemStack;
  * @author : 0newing
  * @version : 1.0
  */
-public class TileEntitySmithTable extends SmsTileEntity implements ISidedInventory
+@SmsTileEntity
+public class TileEntitySmithTable extends SmithsTileEntity implements ISidedInventory
 {
 
     /**
@@ -82,7 +84,7 @@ public class TileEntitySmithTable extends SmsTileEntity implements ISidedInvento
     @Override
     public int getSizeInventory()
     {
-        return 0;
+        return 5;
     }
 
     /**

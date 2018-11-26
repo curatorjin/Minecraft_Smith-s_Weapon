@@ -1,6 +1,7 @@
 package cn.curatorjin.smsweapon.items.weapons.impl.sword;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
+import cn.curatorjin.smsweapon.anno.SmsItem;
 import cn.curatorjin.smsweapon.items.SmsItems;
 import cn.curatorjin.smsweapon.items.moulds.Mould;
 import cn.curatorjin.smsweapon.items.weapons.Weapon;
@@ -14,6 +15,8 @@ import net.minecraft.item.ItemStack;
  * @author 0newing
  * @version 1.0
  */
+
+@SmsItem
 public class FireSword extends Item implements Weapon
 {
 

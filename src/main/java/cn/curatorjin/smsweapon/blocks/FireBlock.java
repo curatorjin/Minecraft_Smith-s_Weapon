@@ -1,6 +1,7 @@
 package cn.curatorjin.smsweapon.blocks;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
+import cn.curatorjin.smsweapon.anno.SmsBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -11,6 +12,8 @@ import net.minecraft.block.material.Material;
  * @author 0newing
  * @version 1.0
  */
+
+@SmsBlock
 class FireBlock extends Block
 {
 

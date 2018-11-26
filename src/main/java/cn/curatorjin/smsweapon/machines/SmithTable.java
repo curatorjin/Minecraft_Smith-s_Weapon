@@ -61,7 +61,11 @@ public class SmithTable extends BlockContainer
                                     int z, EntityPlayer player, int side,
                                     float blockX, float blockY, float blockZ)
     {
-        System.out.println(side);
+        if (!world.isRemote)
+        {
+            TileEntity entity = world.getTileEntity(x,y,z);
+            player.func_146100_a(entity);
+        }
         return true;
     }
 
@@ -84,4 +88,6 @@ public class SmithTable extends BlockContainer
     {
         super.onBlockDestroyedByExplosion(world, x, y, z, explosion);
     }
+
+
 }

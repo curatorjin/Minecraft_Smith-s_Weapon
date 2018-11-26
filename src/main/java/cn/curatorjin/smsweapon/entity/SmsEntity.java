@@ -8,7 +8,7 @@
  */
 package cn.curatorjin.smsweapon.entity;
 
-import cn.curatorjin.smsweapon.entity.tile.SmsTileEntity;
+import cn.curatorjin.smsweapon.entity.tile.SmithsTileEntity;
 import cn.curatorjin.smsweapon.entity.tile.impl.TileEntitySmithTable;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -40,7 +40,7 @@ public class SmsEntity
      *
      * @param entity 要注册的实体
      */
-    private static void registerEntity(SmsTileEntity entity)
+    private static void registerEntity(SmithsTileEntity entity)
     {
         GameRegistry.registerTileEntity(entity.getClass(), entity.getID());
     }

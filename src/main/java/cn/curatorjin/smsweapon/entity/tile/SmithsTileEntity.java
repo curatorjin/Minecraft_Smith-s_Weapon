@@ -1,6 +1,6 @@
 /*
  *
- * 文件名: SmsTileEntity.java
+ * 文件名: SmithsTileEntity.java
  * 描述: 一句话描述
  * 创建人: 0newing
  * 时间: 2018/11/24  0:24
@@ -17,7 +17,7 @@ import net.minecraft.tileentity.TileEntity;
  * @author : 0newing
  * @version : 1.0
  */
-public abstract class SmsTileEntity extends TileEntity
+public abstract class SmithsTileEntity extends TileEntity
 {
     /**
      * 获取ID
