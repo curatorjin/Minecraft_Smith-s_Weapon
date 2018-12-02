@@ -9,14 +9,20 @@
 package cn.curatorjin.smsweapon.machines;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
-import cn.curatorjin.smsweapon.entity.tile.impl.TileEntitySmithTable;
+import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.Explosion;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 
 /**
@@ -25,12 +31,22 @@ import net.minecraft.world.World;
  * @author : 0newing
  * @version : 1.0
  */
-public class SmithTable extends BlockContainer
+public class SmithTable extends Block
 {
+
+    /**
+     * 顶部材质
+     */
+    private static IIcon TINKER_TOP;
+
+    /**
+     * 侧面材质
+     */
+    private static IIcon TINKER_SIDE;
 
     SmithTable()
     {
-        super(Material.iron);
+        super(Material.rock);
 
         this.setCreativeTab(SmithsWeapon.getSmithsWeaponTab());
         this.setBlockName("smithTable");
@@ -43,17 +59,24 @@ public class SmithTable extends BlockContainer
         setStepSound(Block.soundTypeStone);
     }
 
+    /**
+     * Gets the block's texture. Args: side, meta
+     *
+     * @param side ddd
+     * @param meta sd
+     */
     @Override
-    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_)
+    public IIcon getIcon(int side, int meta)
     {
-        return null;
+        return side == 1 ? TINKER_TOP : TINKER_SIDE;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
-    public void onBlockAdded(World world, int x, int y, int z)
+    public void registerBlockIcons(IIconRegister iIconRegister)
     {
-        super.onBlockAdded(world, x, y, z);
-
+        TINKER_TOP = iIconRegister.registerIcon("smsweaponmod:smithTable_top");
+        TINKER_SIDE = iIconRegister.registerIcon("smsweaponmod:smithTable_side");
     }
 
     @Override
@@ -61,33 +84,20 @@ public class SmithTable extends BlockContainer
                                     int z, EntityPlayer player, int side,
                                     float blockX, float blockY, float blockZ)
     {
-        if (!world.isRemote)
-        {
-            TileEntity entity = world.getTileEntity(x,y,z);
-            player.func_146100_a(entity);
-        }
+        player.openGui(SmithsWeapon.getINSTANCE(), 1, world, x, y, z);
         return true;
     }
 
+    /**
+     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+     *
+     * @param item 物品
+     * @param tabs 物品栏
+     * @param list 列表
+     */
     @Override
-    public TileEntity createTileEntity(World world, int metadata)
+    public void getSubBlocks(Item item, CreativeTabs tabs, List list)
     {
-        return new TileEntitySmithTable();
+        list.add(new ItemStack(item, 1, 0));
     }
-
-    @Override
-    public void onBlockDestroyedByPlayer(World world, int x, int y,
-                                         int z, int metaData)
-    {
-        super.onBlockDestroyedByPlayer(world, x, y, z, metaData);
-    }
-
-    @Override
-    public void onBlockDestroyedByExplosion(World world, int x, int y,
-                                            int z, Explosion explosion)
-    {
-        super.onBlockDestroyedByExplosion(world, x, y, z, explosion);
-    }
-
-
 }

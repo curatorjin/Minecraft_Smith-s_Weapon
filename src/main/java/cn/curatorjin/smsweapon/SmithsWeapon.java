@@ -6,9 +6,11 @@ import cn.curatorjin.smsweapon.items.SmsItems;
 import cn.curatorjin.smsweapon.items.SmsRecipes;
 import cn.curatorjin.smsweapon.machines.SmsMachines;
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
@@ -45,6 +47,14 @@ public class SmithsWeapon
     }
 
     /**
+     * 代理实例
+     */
+    @SidedProxy(modId = "smsweapon",
+        clientSide = "cn.curatorjin.smsweapon.client.ClientProxy",
+        serverSide = "cn.curatorjin.smsweapon.CommonProxy")
+    public static CommonProxy proxy;
+
+    /**
      * 分页
      */
     private static SmithsWeaponTab SMITHS_WEAPON_TAB = new SmithsWeaponTab("Smith's Weapon");
@@ -77,7 +87,7 @@ public class SmithsWeapon
     @Mod.EventHandler
     public void load(FMLInitializationEvent event)
     {
-
+        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE,proxy);
     }
 
     /**
