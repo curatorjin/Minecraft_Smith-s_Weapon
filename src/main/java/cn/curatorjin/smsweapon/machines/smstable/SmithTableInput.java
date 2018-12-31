@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 
 
 /**
- * Class/Interface/Enum description
+ * 工作台输入物品槽
  *
  * @author : 0newing
  * @version : 1.0
@@ -24,7 +24,7 @@ public class SmithTableInput implements IInventory
     /**
      * 物品
      */
-    private ItemStack[] stackInput = new ItemStack[1];
+    private ItemStack[] stackInput = new ItemStack[5];
 
     /**
      * 容器
@@ -38,16 +38,16 @@ public class SmithTableInput implements IInventory
 
 
     /**
-     * Returns the number of slots in the inventory.
+     * 物品栏的物品槽数量
      */
     @Override
     public int getSizeInventory()
     {
-        return 1;
+        return 5;
     }
 
     /**
-     * Returns the stack in slot i
+     * 获取指定索引处的物品
      *
      * @param index 物品索引
      */
@@ -94,12 +94,13 @@ public class SmithTableInput implements IInventory
     @Override
     public ItemStack getStackInSlotOnClosing(int index)
     {
-        if (this.stackInput[index] != null)
-        {
-            ItemStack drop = this.stackInput[index];
-            this.stackInput[index] = null;
-            return drop;
-        }
+//        if (this.stackInput[index] != null)
+//        {
+//            ItemStack drop = this.stackInput[index];
+//            this.stackInput[index] = null;
+//            return drop;
+//        }
+
         return null;
     }
 
@@ -176,12 +177,6 @@ public class SmithTableInput implements IInventory
 
     }
 
-    /**
-     * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
-     *
-     * @param p_94041_1_
-     * @param p_94041_2_
-     */
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_)
     {

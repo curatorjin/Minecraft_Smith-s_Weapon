@@ -52,7 +52,7 @@ public class SmithsWeapon
     @SidedProxy(modId = "smsweapon",
         clientSide = "cn.curatorjin.smsweapon.client.ClientProxy",
         serverSide = "cn.curatorjin.smsweapon.CommonProxy")
-    public static CommonProxy proxy;
+    private static CommonProxy PROXY;
 
     /**
      * 分页
@@ -87,7 +87,7 @@ public class SmithsWeapon
     @Mod.EventHandler
     public void load(FMLInitializationEvent event)
     {
-        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE,proxy);
+        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE,PROXY);
     }
 
     /**
@@ -121,5 +121,15 @@ public class SmithsWeapon
         {
             return SmsItems.getSwordMould();
         }
+    }
+
+    public static CommonProxy getPROXY()
+    {
+        return PROXY;
+    }
+
+    public static void setPROXY(CommonProxy proxy)
+    {
+        SmithsWeapon.PROXY = proxy;
     }
 }

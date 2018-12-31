@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 
 
 /**
- * Class/Interface/Enum description
+ * 工作台的物品栏
  *
  * @author : 0newing
  * @version : 1.0
@@ -24,22 +24,7 @@ public class SmithTableCrafting implements IInventory
     /**
      *
      */
-    private ItemStack[] contents = new ItemStack[9];
-
-    /**
-     *
-     */
-    private int numberOfInputItems;
-
-    /**
-     *
-     */
-    private int uncraftingCost;
-
-    /**
-     *
-     */
-    private int recraftingCost;
+    private ItemStack[] contents = new ItemStack[5];
 
     public SmithTableCrafting(ContainerSmithTable containerSmithTable)
     {
@@ -52,7 +37,7 @@ public class SmithTableCrafting implements IInventory
     @Override
     public int getSizeInventory()
     {
-        return 9;
+        return 5;
     }
 
     /**
@@ -151,7 +136,7 @@ public class SmithTableCrafting implements IInventory
     @Override
     public int getInventoryStackLimit()
     {
-        return 64;
+        return 16;
     }
 
     /**

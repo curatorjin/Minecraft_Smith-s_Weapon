@@ -10,65 +10,50 @@ package cn.curatorjin.smsweapon.machines.smstable;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 
 /**
- * Class/Interface/Enum description
+ * 工作台结果物品槽
  *
  * @author : 0newing
  * @version : 1.0
  */
-public class SmithTableResultSlot extends SlotCrafting
+public class SmithTableResultSlot extends Slot
 {
     /**
-     *
+     * 玩家实体
      */
     private EntityPlayer player;
 
     /**
-     *
+     * 输入物品槽
      */
     private IInventory inputSlot;
 
     /**
-     *
-     */
-    private SmithTableCrafting uncraftingMatrix;
-
-    /**
-     *
-     */
-    private InventoryCrafting assemblyMatrix;
-
-    /**
-     *
+     * 结果物品槽
      */
     private IInventory resultSlot;
 
     /**
      * 构造
      *
-     * @param player 玩家实例
-     * @param input 输入
-     * @param uncraftingMatrix
-     * @param assemblyMatrix
-     * @param result
-     * @param slotIndex
-     * @param x
-     * @param y
+     * @param player    玩家实例
+     * @param input     输入物品槽
+     * @param result    结果物品槽
+     * @param slotIndex 物品槽索引
+     * @param x         X坐标
+     * @param y         Y坐标
      */
-    public SmithTableResultSlot(EntityPlayer player, IInventory input, IInventory uncraftingMatrix,
-                                IInventory assemblyMatrix, IInventory result, int slotIndex, int x,
+    public SmithTableResultSlot(EntityPlayer player, IInventory input,
+                                IInventory result, int slotIndex, int x,
                                 int y)
     {
-        super(player, assemblyMatrix, result, slotIndex, x, y);
+        super(result, slotIndex, x, y);
         this.player = player;
         this.inputSlot = input;
-        this.uncraftingMatrix = ((SmithTableCrafting)uncraftingMatrix);
-        this.assemblyMatrix = ((InventoryCrafting)assemblyMatrix);
     }
 
     @Override

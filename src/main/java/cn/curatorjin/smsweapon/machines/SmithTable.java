@@ -9,7 +9,6 @@
 package cn.curatorjin.smsweapon.machines;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
-import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;

@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 
 
 /**
- * Class/Interface/Enum description
+ * 工作台的物品槽
  *
  * @author : 0newing
  * @version : 1.0
@@ -23,22 +23,22 @@ import net.minecraft.item.ItemStack;
 public class SmithTableCraftSlot extends Slot
 {
     /**
-     *
+     * 玩家实体
      */
     private EntityPlayer thePlayer;
 
     /**
-     *
+     * 输入物品槽
      */
     private IInventory inputSlot;
 
     /**
-     *
+     * 合成矩阵
      */
     private SmithTableCrafting craftingMatrix;
 
     /**
-     *
+     * 装配矩阵
      */
     private IInventory assemblyMatrix;
 

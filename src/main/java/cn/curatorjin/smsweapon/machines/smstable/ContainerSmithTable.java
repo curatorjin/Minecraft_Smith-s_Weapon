@@ -8,9 +8,14 @@
  */
 package cn.curatorjin.smsweapon.machines.smstable;
 
+import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCraftResult;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -35,24 +40,14 @@ public class ContainerSmithTable extends Container
     private SmithTableCrafting smithCraftingMatrix = new SmithTableCrafting(this);
 
     /**
-     *
-     */
-    private InventoryCrafting assemblyMatrix = new InventoryCrafting(this, 3, 3);
-
-    /**
-     *
-     */
-    private InventoryCrafting combineMatrix = new InventoryCrafting(this, 3, 3);
-
-    /**
      * 输入物品栏
      */
-    private IInventory tinkerInput = new SmithTableInput(this);
+    private IInventory smithTableInput = new SmithTableInput(this);
 
     /**
      * 结果物品栏
      */
-    private IInventory tinkerResult = new InventoryCraftResult();
+    private IInventory smithTableResult = new InventoryCraftResult();
 
     /**
      * 构造
@@ -66,57 +61,34 @@ public class ContainerSmithTable extends Container
     public ContainerSmithTable(InventoryPlayer inventory, World world, int x, int y, int z)
     {
         this.worldObj = world;
-        addSlotToContainer(new Slot(this.tinkerInput, 0, 13, 35));
         addSlotToContainer(
-            new SmithTableResultSlot(inventory.player, this.tinkerInput, this.smithCraftingMatrix,
-                this.assemblyMatrix, this.tinkerResult, 0, 147, 35));
-        for (int invX = 0; invX < 3; invX++)
-        {
-            for (int invY = 0; invY < 3; invY++)
-            {
-                addSlotToContainer(new SmithTableAssembly(inventory.player, this.tinkerInput,
-                    this.smithCraftingMatrix, this.assemblyMatrix, invY + invX * 3,
-                    300000 + invY * 18, 17 + invX * 18));
-            }
-        }
+            new Slot(this.smithTableInput, SmithTableSlotType.FIRST_MATERIAL.getIndex(), 53, 33));
+        addSlotToContainer(
+            new Slot(this.smithTableInput, SmithTableSlotType.SECEND_MATERIAL.getIndex(), 80, 7));
+        addSlotToContainer(
+            new Slot(this.smithTableInput, SmithTableSlotType.THIRD_MATERIAL.getIndex(), 107, 33));
+        addSlotToContainer(
+            new Slot(this.smithTableInput, SmithTableSlotType.MOULD.getIndex(), 80, 33));
+        addSlotToContainer(
+            new Slot(this.smithTableInput, SmithTableSlotType.FLUE.getIndex(), 80, 61));
 
-        for (int invX = 0; invX < 3; invX++)
-        {
-            for (int invY = 0; invY < 3; invY++)
-            {
-                addSlotToContainer(new SmithTableAssembly(inventory.player, this.tinkerInput,
-                    this.assemblyMatrix, this.smithCraftingMatrix, invY + invX * 3, 62 + invY * 18,
-                    17 + invX * 18));
-            }
-        }
-        for (int invX = 0; invX < 3; invX++)
-        {
-            for (int invY = 0; invY < 9; invY++)
-            {
-                addSlotToContainer(
-                    new Slot(inventory, invY + invX * 9 + 9, 8 + invY * 18, 84 + invX * 18));
-            }
-        }
-        for (int invX = 0; invX < 9; invX++)
-        {
-            addSlotToContainer(new Slot(inventory, invX, 8 + invX * 18, 142));
-        }
+        importPlayerInv(inventory);
 
-        onCraftMatrixChanged(this.assemblyMatrix);
+        onCraftMatrixChanged(this.smithTableInput);
     }
 
     /**
-     * Callback for when the crafting matrix is changed.
+     * 合成矩阵改变事件
      *
-     * @param inventory
+     * @param inventory 物品栏
      */
     @Override
     public void onCraftMatrixChanged(IInventory inventory)
     {
         int i;
-        if (inventory == this.tinkerInput)
+        if (inventory == this.smithTableInput)
         {
-            ItemStack inputStack = this.tinkerInput.getStackInSlot(0);
+            ItemStack inputStack = this.smithTableInput.getStackInSlot(0);
 
         }
     }
@@ -127,4 +99,25 @@ public class ContainerSmithTable extends Container
         return true;
     }
 
+    /**
+     * 将玩家背包中道具导入Container
+     *
+     * @param inventory 玩家物品栏
+     */
+    private void importPlayerInv(InventoryPlayer inventory)
+    {
+        for (int invX = 0; invX < 3; invX++)
+        {
+            for (int invY = 0; invY < 9; invY++)
+            {
+                addSlotToContainer(
+                    new Slot(inventory, invY + invX * 9 + 9, 8 + invY * 18, 84 + invX * 18));
+            }
+        }
+
+        for (int invX = 0; invX < 9; invX++)
+        {
+            addSlotToContainer(new Slot(inventory, invX, 8 + invX * 18, 142));
+        }
+    }
 }
