@@ -1,6 +1,6 @@
 /*
  *
- * 文件名: ContainerSmithTable.java
+ * 文件名: SmithTableContainer.java
  * 描述: 一句话描述
  * 创建人: 0newing
  * 时间: 2018/11/21  0:27
@@ -26,7 +26,7 @@ import net.minecraft.world.World;
  * @author : 0newing
  * @version : 1.0
  */
-public class ContainerSmithTable extends Container
+public class SmithTableContainer extends Container
 {
 
     /**
@@ -37,12 +37,17 @@ public class ContainerSmithTable extends Container
     /**
      * 物品栏
      */
-    private SmithTableCrafting smithCraftingMatrix = new SmithTableCrafting(this);
+    private SmithTableCrafting crafting = new SmithTableCrafting(this);
+
+    /**
+     * 工作中
+     */
+    private boolean working;
 
     /**
      * 输入物品栏
      */
-    private IInventory smithTableInput = new SmithTableInput(this);
+    private SmithTableCrafting smithTableInput = new SmithTableCrafting(this);
 
     /**
      * 结果物品栏
@@ -58,19 +63,24 @@ public class ContainerSmithTable extends Container
      * @param y         坐标Y
      * @param z         坐标Z
      */
-    public ContainerSmithTable(InventoryPlayer inventory, World world, int x, int y, int z)
+    public SmithTableContainer(InventoryPlayer inventory, World world, int x, int y, int z)
     {
         this.worldObj = world;
         addSlotToContainer(
-            new Slot(this.smithTableInput, SmithTableSlotType.FIRST_MATERIAL.getIndex(), 53, 33));
+            new SmithTableCraftSlot(inventory.player, smithTableInput,
+                SmithTableSlotType.FIRST_MATERIAL.getIndex(), 53, 33));
         addSlotToContainer(
-            new Slot(this.smithTableInput, SmithTableSlotType.SECEND_MATERIAL.getIndex(), 80, 7));
+            new SmithTableCraftSlot(inventory.player, smithTableInput,
+                SmithTableSlotType.SECEND_MATERIAL.getIndex(), 80, 7));
         addSlotToContainer(
-            new Slot(this.smithTableInput, SmithTableSlotType.THIRD_MATERIAL.getIndex(), 107, 33));
+            new SmithTableCraftSlot(inventory.player, smithTableInput,
+                SmithTableSlotType.THIRD_MATERIAL.getIndex(), 107, 33));
         addSlotToContainer(
-            new Slot(this.smithTableInput, SmithTableSlotType.MOULD.getIndex(), 80, 33));
+            new SmithTableCraftSlot(inventory.player, smithTableInput,
+                SmithTableSlotType.MOULD.getIndex(), 80, 33));
         addSlotToContainer(
-            new Slot(this.smithTableInput, SmithTableSlotType.FLUE.getIndex(), 80, 61));
+            new SmithTableCraftSlot(inventory.player, smithTableInput,
+                SmithTableSlotType.FLUE.getIndex(), 80, 61));
 
         importPlayerInv(inventory);
 

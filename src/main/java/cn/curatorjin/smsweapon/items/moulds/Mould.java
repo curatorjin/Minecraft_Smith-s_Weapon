@@ -1,5 +1,6 @@
 package cn.curatorjin.smsweapon.items.moulds;
 
+import cn.curatorjin.smsweapon.anno.SmsItem;
 import cn.curatorjin.smsweapon.items.weapons.Weapon;
 import net.minecraft.item.ItemStack;
 
@@ -9,6 +10,7 @@ import net.minecraft.item.ItemStack;
  *
  * @author 0newing
  */
+
 public interface Mould
 {
     /**

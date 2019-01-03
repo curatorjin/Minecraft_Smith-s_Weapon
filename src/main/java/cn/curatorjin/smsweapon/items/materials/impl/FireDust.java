@@ -2,6 +2,7 @@ package cn.curatorjin.smsweapon.items.materials.impl;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
 import cn.curatorjin.smsweapon.anno.SmsItem;
+import cn.curatorjin.smsweapon.anno.SmsMaterial;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 
 @SmsItem
+@SmsMaterial
 public class FireDust extends Item
 {
 

@@ -9,6 +9,7 @@
 package cn.curatorjin.smsweapon.anno;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Target;
 
 
@@ -19,6 +20,7 @@ import java.lang.annotation.Target;
  * @version : 1.0
  */
 
+@Inherited
 @Target(ElementType.TYPE)
 public @interface SmsBlock
 {

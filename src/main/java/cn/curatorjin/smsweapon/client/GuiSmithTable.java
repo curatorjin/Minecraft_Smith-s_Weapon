@@ -8,7 +8,7 @@
  */
 package cn.curatorjin.smsweapon.client;
 
-import cn.curatorjin.smsweapon.machines.smstable.ContainerSmithTable;
+import cn.curatorjin.smsweapon.machines.smstable.SmithTableContainer;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -48,7 +48,7 @@ public class GuiSmithTable extends GuiContainer
      */
     public GuiSmithTable(InventoryPlayer inventory, World world, int x, int y, int z)
     {
-        super(new ContainerSmithTable(inventory, world, x, y, z));
+        super(new SmithTableContainer(inventory, world, x, y, z));
     }
 
     /**
@@ -75,7 +75,7 @@ public class GuiSmithTable extends GuiContainer
         int frameY = (this.height - this.ySize) / 2;
         drawTexturedModalRect(frameX, frameY, 0, 0, this.xSize, this.ySize);
 
-        ContainerSmithTable smsContainer = (ContainerSmithTable)this.inventorySlots;
+        SmithTableContainer smsContainer = (SmithTableContainer)this.inventorySlots;
 
         RenderHelper.enableGUIStandardItemLighting();
         GL11.glPushMatrix();

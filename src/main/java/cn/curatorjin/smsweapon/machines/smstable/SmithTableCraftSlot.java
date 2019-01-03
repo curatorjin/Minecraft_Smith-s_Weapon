@@ -8,10 +8,17 @@
  */
 package cn.curatorjin.smsweapon.machines.smstable;
 
+import cn.curatorjin.smsweapon.anno.SmsFlue;
+import cn.curatorjin.smsweapon.anno.SmsMaterial;
+import cn.curatorjin.smsweapon.anno.SmsMould;
+import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import java.lang.annotation.Annotation;
 
 
 /**
@@ -25,7 +32,7 @@ public class SmithTableCraftSlot extends Slot
     /**
      * 玩家实体
      */
-    private EntityPlayer thePlayer;
+    private EntityPlayer player;
 
     /**
      * 输入物品槽
@@ -33,69 +40,124 @@ public class SmithTableCraftSlot extends Slot
     private IInventory inputSlot;
 
     /**
-     * 合成矩阵
+     * 工作台是否在工作
      */
-    private SmithTableCrafting craftingMatrix;
+    private boolean workingState;
 
     /**
-     * 装配矩阵
+     * 工作台类型
      */
-    private IInventory assemblyMatrix;
+    private int slotType;
 
     /**
      * 构造
      *
-     * @param player           玩家实例
-     * @param inputSlot        输入
-     * @param uncraftingMatrix
-     * @param assemblyMatrix
-     * @param slotNum
-     * @param x
-     * @param y
+     * @param player                玩家实例
+     * @param smithTableCrafting    归属的工作台
+     * @param slotNum               物品槽索引
+     * @param x                     显示的X坐标
+     * @param y                     显示的Y坐标
      */
-    public SmithTableCraftSlot(EntityPlayer player, IInventory inputSlot,
-                               SmithTableCrafting uncraftingMatrix,
-                               IInventory assemblyMatrix, int slotNum, int x, int y)
+    public SmithTableCraftSlot(EntityPlayer player, SmithTableCrafting smithTableCrafting,
+                               int slotNum, int x, int y)
     {
-        super(uncraftingMatrix, slotNum, x, y);
-        this.thePlayer = player;
-        this.inputSlot = inputSlot;
-        this.craftingMatrix = uncraftingMatrix;
-        this.assemblyMatrix = assemblyMatrix;
+        super(smithTableCrafting, slotNum, x, y);
+        this.player = player;
+        this.slotType = slotNum;
     }
 
     /**
-     * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
+     * 物品是否可以放入物品槽
      *
-     * @param p_75214_1_
+     * @param itemStack 待检查的物品
      */
     @Override
-    public boolean isItemValid(ItemStack p_75214_1_)
+    public boolean isItemValid(ItemStack itemStack)
     {
+        if (workingState)
+        {
+            return false;
+        }
+        if (SmithTableSlotType.FIRST_MATERIAL.getIndex() == slotType ||
+            SmithTableSlotType.SECEND_MATERIAL.getIndex() == slotType ||
+            SmithTableSlotType.THIRD_MATERIAL.getIndex() == slotType)
+        {
+            Item item = itemStack.getItem();
+            Class clazz = item.getClass();
+            Annotation annotation = clazz.getAnnotation(SmsMaterial.class);
+            return !(null == annotation);
+        }
+        if (SmithTableSlotType.MOULD.getIndex() == slotType)
+        {
+            Item item = itemStack.getItem();
+            Class clazz = item.getClass();
+            Annotation annotation = clazz.getAnnotation(SmsMould.class);
+            return !(null == annotation);
+        }
+        if (SmithTableSlotType.FLUE.getIndex() == slotType)
+        {
+            Item item = itemStack.getItem();
+            Class clazz = item.getClass();
+            Annotation annotation = clazz.getAnnotation(SmsFlue.class);
+            return !(null == annotation);
+        }
         return false;
     }
 
     /**
-     * Return whether this slot's stack can be taken from this slot.
+     * 物品槽内的物品是否可以被取出
      *
-     * @param player
+     * @param player 玩家
      */
     @Override
     public boolean canTakeStack(EntityPlayer player)
     {
-        for (int i = 0; i < this.assemblyMatrix.getSizeInventory(); i++)
-        {
-            if (this.assemblyMatrix.getStackInSlot(i) != null)
-            {
-                return false;
-            }
-        }
-        return true;
+        return !workingState;
     }
 
     @Override
     public void onPickupFromSlot(EntityPlayer player, ItemStack itemStack)
     {
         super.onPickupFromSlot(player, itemStack);
+    }
+
+    public EntityPlayer getPlayer()
+    {
+        return player;
+    }
+
+    public void setPlayer(EntityPlayer player)
+    {
+        this.player = player;
+    }
+
+    public IInventory getInputSlot()
+    {
+        return inputSlot;
+    }
+
+    public void setInputSlot(IInventory inputSlot)
+    {
+        this.inputSlot = inputSlot;
+    }
+
+    public boolean isWorkingState()
+    {
+        return workingState;
+    }
+
+    public void setWorkingState(boolean workingState)
+    {
+        this.workingState = workingState;
+    }
+
+    public void setSlotType(int slotType)
+    {
+        this.slotType = slotType;
+    }
+
+    public int getSlotType()
+    {
+        return slotType;
     }
 }

@@ -10,6 +10,7 @@ package cn.curatorjin.smsweapon.items.moulds.impl;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
 import cn.curatorjin.smsweapon.anno.SmsItem;
+import cn.curatorjin.smsweapon.anno.SmsMould;
 import cn.curatorjin.smsweapon.items.moulds.Mould;
 import cn.curatorjin.smsweapon.items.weapons.Weapon;
 import net.minecraft.item.Item;
@@ -23,7 +24,7 @@ import net.minecraft.item.ItemStack;
  * @version : 1.0
  */
 
-@SmsItem
+@SmsMould
 public class SpearMould extends Item implements Mould
 {
 

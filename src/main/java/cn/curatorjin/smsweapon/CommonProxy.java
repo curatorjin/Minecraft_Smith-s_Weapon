@@ -9,7 +9,7 @@
 package cn.curatorjin.smsweapon;
 
 import cn.curatorjin.smsweapon.client.GuiSmithTable;
-import cn.curatorjin.smsweapon.machines.smstable.ContainerSmithTable;
+import cn.curatorjin.smsweapon.machines.smstable.SmithTableContainer;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -40,7 +40,7 @@ public class CommonProxy implements IGuiHandler
     public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y,
                                       int z)
     {
-        return new ContainerSmithTable(player.inventory,world,x,y,z);
+        return new SmithTableContainer(player.inventory,world,x,y,z);
     }
 
     /**

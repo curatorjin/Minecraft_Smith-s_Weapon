@@ -22,11 +22,11 @@ import net.minecraft.item.ItemStack;
 public class SmithTableCrafting implements IInventory
 {
     /**
-     *
+     * 物品栏内容物
      */
     private ItemStack[] contents = new ItemStack[5];
 
-    public SmithTableCrafting(ContainerSmithTable containerSmithTable)
+    public SmithTableCrafting(SmithTableContainer smithTableContainer)
     {
 
     }
