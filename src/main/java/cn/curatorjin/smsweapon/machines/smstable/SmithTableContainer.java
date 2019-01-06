@@ -11,13 +11,11 @@ package cn.curatorjin.smsweapon.machines.smstable;
 import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 
 /**
@@ -28,21 +26,6 @@ import net.minecraft.world.World;
  */
 public class SmithTableContainer extends Container
 {
-
-    /**
-     * 世界实例
-     */
-    private World worldObj;
-
-    /**
-     * 物品栏
-     */
-    private SmithTableCrafting crafting = new SmithTableCrafting(this);
-
-    /**
-     * 工作中
-     */
-    private boolean working;
 
     /**
      * 输入物品栏
@@ -58,14 +41,9 @@ public class SmithTableContainer extends Container
      * 构造
      *
      * @param inventory 玩家物品
-     * @param world     世界
-     * @param x         坐标X
-     * @param y         坐标Y
-     * @param z         坐标Z
      */
-    public SmithTableContainer(InventoryPlayer inventory, World world, int x, int y, int z)
+    public SmithTableContainer(InventoryPlayer inventory)
     {
-        this.worldObj = world;
         addSlotToContainer(
             new SmithTableCraftSlot(inventory.player, smithTableInput,
                 SmithTableSlotType.FIRST_MATERIAL.getIndex(), 53, 33));
@@ -129,5 +107,10 @@ public class SmithTableContainer extends Container
         {
             addSlotToContainer(new Slot(inventory, invX, 8 + invX * 18, 142));
         }
+    }
+
+    public SmithTableCrafting getSmithTableInput()
+    {
+        return smithTableInput;
     }
 }

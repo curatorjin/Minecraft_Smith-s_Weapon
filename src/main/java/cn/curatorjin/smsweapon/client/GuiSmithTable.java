@@ -13,12 +13,11 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 
@@ -40,15 +39,11 @@ public class GuiSmithTable extends GuiContainer
     /**
      * 构造方法
      *
-     * @param inventory 玩家物品栏
-     * @param world     世界
-     * @param x         X坐标
-     * @param y         Y坐标
-     * @param z         Z坐标
+     * @param container 工作台容器
      */
-    public GuiSmithTable(InventoryPlayer inventory, World world, int x, int y, int z)
+    public GuiSmithTable(Container container)
     {
-        super(new SmithTableContainer(inventory, world, x, y, z));
+        super(container);
     }
 
     /**
@@ -116,5 +111,14 @@ public class GuiSmithTable extends GuiContainer
         GL11.glEnable(2929);
 
         this.zLevel = 0.0F;
+    }
+
+    /**
+     * Called when the screen is unloaded. Used to disable keyboard repeat events
+     */
+    @Override
+    public void onGuiClosed()
+    {
+        super.onGuiClosed();
     }
 }

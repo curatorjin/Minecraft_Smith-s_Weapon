@@ -1,6 +1,6 @@
 /*
  *
- * 文件名: TileEntitySmithTable.java
+ * 文件名: SmithTableTEntity.java
  * 描述: 一句话描述
  * 创建人: 0newing
  * 时间: 2018/11/21  22:35
@@ -12,7 +12,9 @@ import cn.curatorjin.smsweapon.anno.SmsTileEntity;
 import cn.curatorjin.smsweapon.beans.BlockSide;
 import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
 import cn.curatorjin.smsweapon.entity.tile.SmithsTileEntity;
+import cn.curatorjin.smsweapon.machines.smstable.SmithTableContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 
@@ -24,18 +26,18 @@ import net.minecraft.item.ItemStack;
  * @version : 1.0
  */
 @SmsTileEntity
-public class TileEntitySmithTable extends SmithsTileEntity implements ISidedInventory
+public class SmithTableTEntity extends SmithsTileEntity implements ISidedInventory
 {
 
     /**
      * 实例
      */
-    private static TileEntitySmithTable INSTANCE;
+    private static SmithTableTEntity INSTANCE;
 
     /**
-     * 工作台内含物品
+     * 工作台容器
      */
-    private ItemStack[] smithTableContent = new ItemStack[5];
+    private SmithTableContainer container;
 
     /**
      * 某个面可以访问到的物品槽索引数组
@@ -95,7 +97,11 @@ public class TileEntitySmithTable extends SmithsTileEntity implements ISidedInve
     @Override
     public ItemStack getStackInSlot(int index)
     {
-        return smithTableContent[index];
+        if (null == container)
+        {
+            return null;
+        }
+        return container.getSmithTableInput().getStackInSlot(index);
     }
 
     /**
@@ -138,7 +144,11 @@ public class TileEntitySmithTable extends SmithsTileEntity implements ISidedInve
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemStack)
     {
-        smithTableContent[slot] = itemStack;
+        if (container == null)
+        {
+            return;
+        }
+        container.getSmithTableInput().setInventorySlotContents(slot, itemStack);
     }
 
     /**
@@ -219,12 +229,27 @@ public class TileEntitySmithTable extends SmithsTileEntity implements ISidedInve
      *
      * @return 当前实例
      */
-    public static TileEntitySmithTable getInstance()
+    public static SmithTableTEntity getInstance()
     {
         if (INSTANCE == null)
         {
-            INSTANCE = new TileEntitySmithTable();
+            INSTANCE = new SmithTableTEntity();
         }
         return INSTANCE;
+    }
+
+    /**
+     * 获取工作台容器
+     *
+     * @param inventory 玩家物品栏
+     * @return 容器对象
+     */
+    public SmithTableContainer getContainer(InventoryPlayer inventory)
+    {
+        if (null == container)
+        {
+            container = new SmithTableContainer(inventory);
+        }
+        return container;
     }
 }

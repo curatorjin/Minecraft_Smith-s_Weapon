@@ -9,7 +9,7 @@
 package cn.curatorjin.smsweapon.entity;
 
 import cn.curatorjin.smsweapon.entity.tile.SmithsTileEntity;
-import cn.curatorjin.smsweapon.entity.tile.impl.TileEntitySmithTable;
+import cn.curatorjin.smsweapon.entity.tile.impl.SmithTableTEntity;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 
@@ -27,12 +27,21 @@ public class SmsEntity
     public static final int DEFAULT_TRACK_RANGE = 64;
 
     /**
+     * 工作台实体
+     */
+    private static SmithTableTEntity SMITH_TABLE_TENTITY = SmithTableTEntity.getInstance();
+
+    public static SmithTableTEntity getSmithTableTentity()
+    {
+        return SMITH_TABLE_TENTITY;
+    }
+
+    /**
      * 注册所有的实体
      */
     public static void registerAllEntities()
     {
-        registerEntity(TileEntitySmithTable.getInstance());
-
+        registerEntity(SmithTableTEntity.getInstance());
     }
 
     /**
