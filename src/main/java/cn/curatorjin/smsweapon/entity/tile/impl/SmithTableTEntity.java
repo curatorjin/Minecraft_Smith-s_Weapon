@@ -12,9 +12,7 @@ import cn.curatorjin.smsweapon.anno.SmsTileEntity;
 import cn.curatorjin.smsweapon.beans.BlockSide;
 import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
 import cn.curatorjin.smsweapon.entity.tile.SmithsTileEntity;
-import cn.curatorjin.smsweapon.machines.smstable.SmithTableContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 
@@ -35,9 +33,9 @@ public class SmithTableTEntity extends SmithsTileEntity implements ISidedInvento
     private static SmithTableTEntity INSTANCE;
 
     /**
-     * 工作台容器
+     * 实体的物品栏
      */
-    private SmithTableContainer container;
+    private ItemStack[] smithTableItems = new ItemStack[5];
 
     /**
      * 某个面可以访问到的物品槽索引数组
@@ -97,11 +95,7 @@ public class SmithTableTEntity extends SmithsTileEntity implements ISidedInvento
     @Override
     public ItemStack getStackInSlot(int index)
     {
-        if (null == container)
-        {
-            return null;
-        }
-        return container.getSmithTableInput().getStackInSlot(index);
+        return this.smithTableItems[index];
     }
 
     /**
@@ -144,11 +138,12 @@ public class SmithTableTEntity extends SmithsTileEntity implements ISidedInvento
     @Override
     public void setInventorySlotContents(int slot, ItemStack itemStack)
     {
-        if (container == null)
+        this.smithTableItems[slot] = itemStack;
+
+        if (null != itemStack && itemStack.stackSize > this.getInventoryStackLimit())
         {
-            return;
+            itemStack.stackSize = this.getInventoryStackLimit();
         }
-        container.getSmithTableInput().setInventorySlotContents(slot, itemStack);
     }
 
     /**
@@ -186,7 +181,9 @@ public class SmithTableTEntity extends SmithsTileEntity implements ISidedInvento
     @Override
     public boolean isUseableByPlayer(EntityPlayer player)
     {
-        return false;
+        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this &&
+               player.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D,
+                   (double)this.zCoord + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -238,18 +235,4 @@ public class SmithTableTEntity extends SmithsTileEntity implements ISidedInvento
         return INSTANCE;
     }
 
-    /**
-     * 获取工作台容器
-     *
-     * @param inventory 玩家物品栏
-     * @return 容器对象
-     */
-    public SmithTableContainer getContainer(InventoryPlayer inventory)
-    {
-        if (null == container)
-        {
-            container = new SmithTableContainer(inventory);
-        }
-        return container;
-    }
 }

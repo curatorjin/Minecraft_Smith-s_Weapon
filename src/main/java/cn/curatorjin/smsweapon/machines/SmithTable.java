@@ -104,35 +104,14 @@ public class SmithTable extends Block implements ITileEntityProvider
     }
 
     /**
-     * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
-     *
-     * @param world    世界对象
-     * @param x        X坐标
-     * @param y        Y坐标
-     * @param z        Z坐标
-     * @param side     右键方块的面
-     * @param hitX     右键点击的X坐标
-     * @param hitY     右键点击的Y坐标
-     * @param hitZ     右键点击的Z坐标
-     * @param metaData 方块MetaData
-     */
-    @Override
-    public int onBlockPlaced(World world, int x, int y, int z,
-                             int side, float hitX, float hitY,
-                             float hitZ, int metaData)
-    {
-        return metaData;
-    }
-
-    /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      *
-     * @param world
-     * @param metaData
+     * @param world     世界实例
+     * @param metaData  方块MetaData
      */
     @Override
     public TileEntity createNewTileEntity(World world, int metaData)
     {
-        return SmithTableTEntity.getInstance();
+        return new SmithTableTEntity();
     }
 }

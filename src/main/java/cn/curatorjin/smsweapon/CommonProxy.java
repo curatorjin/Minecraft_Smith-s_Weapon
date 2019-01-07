@@ -10,9 +10,9 @@ package cn.curatorjin.smsweapon;
 
 import cn.curatorjin.smsweapon.client.GuiSmithTable;
 import cn.curatorjin.smsweapon.entity.tile.impl.SmithTableTEntity;
+import cn.curatorjin.smsweapon.machines.smstable.SmithTableContainer;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -47,8 +47,8 @@ public class CommonProxy implements IGuiHandler
             TileEntity entity = world.getTileEntity(x, y, z);
             if (entity instanceof SmithTableTEntity)
             {
-                SmithTableTEntity tableTEntity = (SmithTableTEntity)entity;
-                return tableTEntity.getContainer(player.inventory);
+                SmithTableTEntity smithTableTEntity = (SmithTableTEntity)entity;
+                return new SmithTableContainer(player.inventory, smithTableTEntity);
             }
         }
         return null;
@@ -76,9 +76,8 @@ public class CommonProxy implements IGuiHandler
             TileEntity entity = world.getTileEntity(x, y, z);
             if (entity instanceof SmithTableTEntity)
             {
-                SmithTableTEntity tableTEntity = (SmithTableTEntity)entity;
-                Container container = tableTEntity.getContainer(player.inventory);
-                return new GuiSmithTable(container);
+                SmithTableTEntity smithTableTEntity = (SmithTableTEntity)entity;
+                return new GuiSmithTable(player.inventory, smithTableTEntity);
             }
         }
         return null;

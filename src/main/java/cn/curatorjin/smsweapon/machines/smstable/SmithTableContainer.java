@@ -9,6 +9,7 @@
 package cn.curatorjin.smsweapon.machines.smstable;
 
 import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
+import cn.curatorjin.smsweapon.entity.tile.impl.SmithTableTEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -16,6 +17,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.tileentity.TileEntityFurnace;
 
 
 /**
@@ -28,63 +31,46 @@ public class SmithTableContainer extends Container
 {
 
     /**
-     * 输入物品栏
-     */
-    private SmithTableCrafting smithTableInput = new SmithTableCrafting(this);
-
-    /**
      * 结果物品栏
      */
     private IInventory smithTableResult = new InventoryCraftResult();
+
+    /**
+     * 工作台实体
+     */
+    private SmithTableTEntity tileEntity;
 
     /**
      * 构造
      *
      * @param inventory 玩家物品
      */
-    public SmithTableContainer(InventoryPlayer inventory)
+    public SmithTableContainer(InventoryPlayer inventory, SmithTableTEntity smithTableTEntity)
     {
+        this.tileEntity = smithTableTEntity;
         addSlotToContainer(
-            new SmithTableCraftSlot(inventory.player, smithTableInput,
+            new SmithTableCraftSlot(inventory.player, tileEntity,
                 SmithTableSlotType.FIRST_MATERIAL.getIndex(), 53, 33));
         addSlotToContainer(
-            new SmithTableCraftSlot(inventory.player, smithTableInput,
+            new SmithTableCraftSlot(inventory.player, tileEntity,
                 SmithTableSlotType.SECEND_MATERIAL.getIndex(), 80, 7));
         addSlotToContainer(
-            new SmithTableCraftSlot(inventory.player, smithTableInput,
+            new SmithTableCraftSlot(inventory.player, tileEntity,
                 SmithTableSlotType.THIRD_MATERIAL.getIndex(), 107, 33));
         addSlotToContainer(
-            new SmithTableCraftSlot(inventory.player, smithTableInput,
+            new SmithTableCraftSlot(inventory.player, tileEntity,
                 SmithTableSlotType.MOULD.getIndex(), 80, 33));
         addSlotToContainer(
-            new SmithTableCraftSlot(inventory.player, smithTableInput,
+            new SmithTableCraftSlot(inventory.player, tileEntity,
                 SmithTableSlotType.FLUE.getIndex(), 80, 61));
 
         importPlayerInv(inventory);
-
-        onCraftMatrixChanged(this.smithTableInput);
-    }
-
-    /**
-     * 合成矩阵改变事件
-     *
-     * @param inventory 物品栏
-     */
-    @Override
-    public void onCraftMatrixChanged(IInventory inventory)
-    {
-        int i;
-        if (inventory == this.smithTableInput)
-        {
-            ItemStack inputStack = this.smithTableInput.getStackInSlot(0);
-
-        }
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer p_75145_1_)
+    public boolean canInteractWith(EntityPlayer player)
     {
-        return true;
+        return this.tileEntity.isUseableByPlayer(player);
     }
 
     /**
@@ -109,8 +95,83 @@ public class SmithTableContainer extends Container
         }
     }
 
-    public SmithTableCrafting getSmithTableInput()
+    /**
+     * 当玩家Shift右键物品时触发
+     *
+     * @param player    玩家实例
+     * @param slotIndex 物品槽索引
+     */
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex)
     {
-        return smithTableInput;
+        ItemStack itemstack = null;
+        Slot slot = (Slot)this.inventorySlots.get(slotIndex);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (slotIndex == 2)
+            {
+                if (!this.mergeItemStack(itemstack1, 3, 39, true))
+                {
+                    return null;
+                }
+
+                slot.onSlotChange(itemstack1, itemstack);
+            }
+            else if (slotIndex != 1 && slotIndex != 0)
+            {
+                if (FurnaceRecipes.smelting().getSmeltingResult(itemstack1) != null)
+                {
+                    if (!this.mergeItemStack(itemstack1, 0, 1, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (TileEntityFurnace.isItemFuel(itemstack1))
+                {
+                    if (!this.mergeItemStack(itemstack1, 1, 2, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (slotIndex < 30)
+                {
+                    if (!this.mergeItemStack(itemstack1, 30, 39, false))
+                    {
+                        return null;
+                    }
+                }
+                else if (slotIndex < 39 &&
+                         !this.mergeItemStack(itemstack1, 3, 30, false))
+                {
+                    return null;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1, 3, 39, false))
+            {
+                return null;
+            }
+
+            if (itemstack1.stackSize == 0)
+            {
+                slot.putStack(null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+
+            if (itemstack1.stackSize == itemstack.stackSize)
+            {
+                return null;
+            }
+
+            slot.onPickupFromSlot(player, itemstack1);
+        }
+
+        return itemstack;
     }
 }

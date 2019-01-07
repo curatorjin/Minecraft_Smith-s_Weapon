@@ -12,6 +12,7 @@ import cn.curatorjin.smsweapon.anno.SmsFlue;
 import cn.curatorjin.smsweapon.anno.SmsMaterial;
 import cn.curatorjin.smsweapon.anno.SmsMould;
 import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
+import cn.curatorjin.smsweapon.entity.tile.impl.SmithTableTEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -40,11 +41,6 @@ public class SmithTableCraftSlot extends Slot
     private IInventory inputSlot;
 
     /**
-     * 工作台是否在工作
-     */
-    private boolean workingState;
-
-    /**
      * 工作台类型
      */
     private int slotType;
@@ -53,15 +49,15 @@ public class SmithTableCraftSlot extends Slot
      * 构造
      *
      * @param player                玩家实例
-     * @param smithTableCrafting    归属的工作台
+     * @param smithTableTEntity    归属的工作台
      * @param slotNum               物品槽索引
      * @param x                     显示的X坐标
      * @param y                     显示的Y坐标
      */
-    public SmithTableCraftSlot(EntityPlayer player, SmithTableCrafting smithTableCrafting,
+    SmithTableCraftSlot(EntityPlayer player, SmithTableTEntity smithTableTEntity,
                                int slotNum, int x, int y)
     {
-        super(smithTableCrafting, slotNum, x, y);
+        super(smithTableTEntity, slotNum, x, y);
         this.player = player;
         this.slotType = slotNum;
     }
@@ -74,10 +70,6 @@ public class SmithTableCraftSlot extends Slot
     @Override
     public boolean isItemValid(ItemStack itemStack)
     {
-        if (workingState)
-        {
-            return false;
-        }
         if (SmithTableSlotType.FIRST_MATERIAL.getIndex() == slotType ||
             SmithTableSlotType.SECEND_MATERIAL.getIndex() == slotType ||
             SmithTableSlotType.THIRD_MATERIAL.getIndex() == slotType)
@@ -112,7 +104,7 @@ public class SmithTableCraftSlot extends Slot
     @Override
     public boolean canTakeStack(EntityPlayer player)
     {
-        return !workingState;
+        return true;
     }
 
     @Override
@@ -139,16 +131,6 @@ public class SmithTableCraftSlot extends Slot
     public void setInputSlot(IInventory inputSlot)
     {
         this.inputSlot = inputSlot;
-    }
-
-    public boolean isWorkingState()
-    {
-        return workingState;
-    }
-
-    public void setWorkingState(boolean workingState)
-    {
-        this.workingState = workingState;
     }
 
     public void setSlotType(int slotType)

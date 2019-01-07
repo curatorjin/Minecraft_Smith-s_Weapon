@@ -8,12 +8,15 @@
  */
 package cn.curatorjin.smsweapon.client;
 
+import cn.curatorjin.smsweapon.entity.tile.impl.SmithTableTEntity;
 import cn.curatorjin.smsweapon.machines.smstable.SmithTableContainer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.inventory.Container;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -27,6 +30,7 @@ import org.lwjgl.opengl.GL11;
  * @author : 0newing
  * @version : 1.0
  */
+@SideOnly(Side.CLIENT)
 public class GuiSmithTable extends GuiContainer
 {
 
@@ -37,13 +41,20 @@ public class GuiSmithTable extends GuiContainer
         "smsweaponmod:textures/gui/smstable.png");
 
     /**
+     * 工作台实体
+     */
+    private SmithTableTEntity tileEntity;
+
+    /**
      * 构造方法
      *
-     * @param container 工作台容器
+     * @param inventoryPlayer 玩家物品栏
+     * @param entity 工作台实体
      */
-    public GuiSmithTable(Container container)
+    public GuiSmithTable(InventoryPlayer inventoryPlayer, SmithTableTEntity entity)
     {
-        super(container);
+        super(new SmithTableContainer(inventoryPlayer,entity));
+        this.tileEntity = entity;
     }
 
     /**
@@ -113,12 +124,4 @@ public class GuiSmithTable extends GuiContainer
         this.zLevel = 0.0F;
     }
 
-    /**
-     * Called when the screen is unloaded. Used to disable keyboard repeat events
-     */
-    @Override
-    public void onGuiClosed()
-    {
-        super.onGuiClosed();
-    }
 }
