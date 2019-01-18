@@ -10,9 +10,9 @@ package cn.curatorjin.smsweapon.items.moulds.impl;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
 import cn.curatorjin.smsweapon.anno.SmsMould;
+import cn.curatorjin.smsweapon.items.SmithItem;
 import cn.curatorjin.smsweapon.items.moulds.Mould;
 import cn.curatorjin.smsweapon.items.weapons.Weapon;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 
@@ -24,8 +24,28 @@ import net.minecraft.item.ItemStack;
  */
 
 @SmsMould
-public class WandMould extends Item implements Mould
+public class WandMould extends SmithItem implements Mould
 {
+
+    /**
+     * 本类实例对象
+     */
+    private static WandMould INSTANCE;
+
+    /**
+     * 获取实例
+     *
+     * @return 本身的实例对象(单例)
+     */
+    @Override
+    public SmithItem getInstance()
+    {
+        if (null == INSTANCE)
+        {
+            INSTANCE = new WandMould();
+        }
+        return INSTANCE;
+    }
 
     public WandMould()
     {

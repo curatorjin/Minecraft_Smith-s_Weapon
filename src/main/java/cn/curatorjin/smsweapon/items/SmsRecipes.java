@@ -8,7 +8,8 @@
  */
 package cn.curatorjin.smsweapon.items;
 
-import cn.curatorjin.smsweapon.blocks.SmsBlocks;
+import cn.curatorjin.smsweapon.blocks.FireBlock;
+import cn.curatorjin.smsweapon.items.materials.impl.FireDust;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.ItemStack;
 
@@ -28,7 +29,7 @@ public class SmsRecipes
     public static void registerSmsRecipes()
     {
         //冶炼公式
-        GameRegistry.addSmelting(SmsBlocks.getFireBlock(),
-            new ItemStack(SmsItems.getFireDust(), 1), 50f);
+        GameRegistry.addSmelting(new FireBlock().getInstance(),
+            new ItemStack(new FireDust().getInstance(), 1), 50f);
     }
 }

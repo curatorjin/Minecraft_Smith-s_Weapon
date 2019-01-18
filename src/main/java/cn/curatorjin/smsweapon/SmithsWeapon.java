@@ -1,9 +1,10 @@
 package cn.curatorjin.smsweapon;
 
 import cn.curatorjin.smsweapon.blocks.SmsBlocks;
-import cn.curatorjin.smsweapon.entity.SmsEntity;
+import cn.curatorjin.smsweapon.entity.SmsEntities;
 import cn.curatorjin.smsweapon.items.SmsItems;
 import cn.curatorjin.smsweapon.items.SmsRecipes;
+import cn.curatorjin.smsweapon.items.moulds.impl.SwordMould;
 import cn.curatorjin.smsweapon.machines.SmsMachines;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -76,7 +77,7 @@ public class SmithsWeapon
         SmsItems.registerSmsItems();
         SmsMachines.registerSmsMachines();
         SmsRecipes.registerSmsRecipes();
-        SmsEntity.registerAllEntities();
+        SmsEntities.registerAllEntities();
     }
 
     /**
@@ -119,7 +120,7 @@ public class SmithsWeapon
         @Override
         public Item getTabIconItem()
         {
-            return SmsItems.getSwordMould();
+            return new SwordMould().getInstance();
         }
     }
 

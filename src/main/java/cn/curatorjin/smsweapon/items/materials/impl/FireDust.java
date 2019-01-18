@@ -1,10 +1,9 @@
 package cn.curatorjin.smsweapon.items.materials.impl;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
-import cn.curatorjin.smsweapon.anno.SmsItem;
 import cn.curatorjin.smsweapon.anno.SmsMaterial;
+import cn.curatorjin.smsweapon.items.SmithItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
@@ -17,10 +16,14 @@ import java.util.List;
  * @author 0newing
  */
 
-@SmsItem
 @SmsMaterial
-public class FireDust extends Item
+public class FireDust extends SmithItem
 {
+
+    /**
+     * 本类实例对象
+     */
+    private static FireDust INSTANCE;
 
     public FireDust()
     {
@@ -28,6 +31,21 @@ public class FireDust extends Item
         this.setUnlocalizedName("fireDust");
         this.setTextureName("smsweaponmod:fireDust");
         this.setCreativeTab(SmithsWeapon.getSmithsWeaponTab());
+    }
+
+    /**
+     * 获取实例
+     *
+     * @return 本身的实例对象(单例)
+     */
+    @Override
+    public SmithItem getInstance()
+    {
+        if (null == INSTANCE)
+        {
+            INSTANCE = new FireDust();
+        }
+        return INSTANCE;
     }
 
     @Override

@@ -8,7 +8,7 @@
  */
 package cn.curatorjin.smsweapon.items.other;
 
-import cn.curatorjin.smsweapon.anno.SmsItem;
+import cn.curatorjin.smsweapon.items.SmithItem;
 
 
 /**
@@ -18,9 +18,26 @@ import cn.curatorjin.smsweapon.anno.SmsItem;
  * @version : 1.0
  */
 
-@SmsItem
-public class FailedCreation
+public class FailedCreation extends SmithItem
 {
 
+    /**
+     * 本类实例对象
+     */
+    private static FailedCreation INSTANCE;
 
+    /**
+     * 获取实例
+     *
+     * @return 本身的实例对象(单例)
+     */
+    @Override
+    public SmithItem getInstance()
+    {
+        if (null == INSTANCE)
+        {
+            INSTANCE = new FailedCreation();
+        }
+        return INSTANCE;
+    }
 }

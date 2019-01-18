@@ -8,11 +8,15 @@
  */
 package cn.curatorjin.smsweapon.items;
 
-import cn.curatorjin.smsweapon.items.materials.impl.FireDust;
-import cn.curatorjin.smsweapon.items.moulds.impl.SwordMould;
-import cn.curatorjin.smsweapon.items.weapons.impl.sword.FireSword;
+import cn.curatorjin.smsweapon.anno.SmsItem;
+import cn.curatorjin.smsweapon.utils.PackageScanner;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -25,47 +29,38 @@ public class SmsItems
 {
 
     /**
-     * 烈焰尘
+     * 物品对应的包路径
      */
-    private static FireDust FIRE_DUST;
+    private static final String PACKAGE_PATH = "cn.curatorjin.smsweapon.items";
 
     /**
-     * 剑模具
-     */
-    private static SwordMould SWORD_MOULD;
-
-    /**
-     * 炎之剑
-     */
-    private static FireSword FIRE_SWORD;
-
-    /**
-     * 注册所有物品，供主类调用
-     *
+     * 注册所有物品
      */
     public static void registerSmsItems()
     {
-
-        //物品声明
-        //材料
-        FIRE_DUST = new FireDust();
-
-        //武器
-        FIRE_SWORD = new FireSword();
-
-        //模具
-        SWORD_MOULD = new SwordMould();
-
-
-        //物品注册
-        //材料
-        registerSmsItem(FIRE_DUST);
-
-        //武器
-        registerSmsItem(FIRE_SWORD);
-
-        //模具
-        registerSmsItem(SWORD_MOULD);
+        List<Class> list = new ArrayList<Class>();
+        PackageScanner.getAllClasses(list, PACKAGE_PATH);
+        for (Class<?> c : list)
+        {
+            try
+            {
+                Annotation tag = c.getAnnotation(SmsItem.class);
+                if (tag == null)
+                {
+                    continue;
+                }
+                Method m = c.getDeclaredMethod("getInstance");
+                Object object = m.invoke(c.newInstance());
+                if (object instanceof Item)
+                {
+                    registerSmsItem((Item)object);
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -75,21 +70,6 @@ public class SmsItems
      */
     private static void registerSmsItem(Item item)
     {
-        GameRegistry.registerItem(item,item.getUnlocalizedName().substring(5));
-    }
-
-    public static FireDust getFireDust()
-    {
-        return FIRE_DUST;
-    }
-
-    public static SwordMould getSwordMould()
-    {
-        return SWORD_MOULD;
-    }
-
-    public static FireSword getFireSword()
-    {
-        return FIRE_SWORD;
+        GameRegistry.registerItem(item, item.getUnlocalizedName().substring(5));
     }
 }

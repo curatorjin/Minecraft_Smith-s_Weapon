@@ -8,10 +8,10 @@
  */
 package cn.curatorjin.smsweapon.entity.tile.impl;
 
-import cn.curatorjin.smsweapon.anno.SmsTileEntity;
 import cn.curatorjin.smsweapon.beans.BlockSide;
 import cn.curatorjin.smsweapon.beans.SmithTableSlotType;
-import cn.curatorjin.smsweapon.entity.tile.SmithsTileEntity;
+import cn.curatorjin.smsweapon.entity.tile.SmithTileEntity;
+import cn.curatorjin.smsweapon.items.weapons.impl.sword.FireSword;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -23,8 +23,8 @@ import net.minecraft.item.ItemStack;
  * @author : 0newing
  * @version : 1.0
  */
-@SmsTileEntity
-public class SmithTableTEntity extends SmithsTileEntity implements ISidedInventory
+
+public class SmithTableTEntity extends SmithTileEntity implements ISidedInventory
 {
 
     /**
@@ -144,6 +144,16 @@ public class SmithTableTEntity extends SmithsTileEntity implements ISidedInvento
         {
             itemStack.stackSize = this.getInventoryStackLimit();
         }
+
+        if (isCraftable())
+        {
+            ItemStack item = handleCraft();
+            for (int i = 0; i < this.smithTableItems.length; i++)
+            {
+                this.smithTableItems[i] = null;
+            }
+            this.smithTableItems[SmithTableSlotType.MOULD.getIndex()] = item;
+        }
     }
 
     /**
@@ -211,28 +221,57 @@ public class SmithTableTEntity extends SmithsTileEntity implements ISidedInvento
     }
 
     /**
-     * 获取ID
-     *
-     * @return 实体ID
-     */
-    @Override
-    public String getID()
-    {
-        return "SmithTableEntity";
-    }
-
-    /**
      * 获取当前实例
      *
      * @return 当前实例
      */
-    public static SmithTableTEntity getInstance()
+    @Override
+    public SmithTableTEntity getInstance()
     {
         if (INSTANCE == null)
         {
             INSTANCE = new SmithTableTEntity();
         }
         return INSTANCE;
+    }
+
+    /**
+     * 获取实体ID
+     *
+     * @return 实体ID
+     */
+    @Override
+    public String getID()
+    {
+        return "SmithTableTEntity";
+    }
+
+    /**
+     * 判断是否可以合成武器
+     *
+     * @return 判断结果
+     */
+    private boolean isCraftable()
+    {
+        for (ItemStack item :
+            smithTableItems)
+        {
+            if (null == item)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 处理物品
+     *
+     * @return 结果武器
+     */
+    private ItemStack handleCraft()
+    {
+        return new ItemStack(new FireSword().getInstance(), 1);
     }
 
 }

@@ -9,6 +9,8 @@
 package cn.curatorjin.smsweapon.machines;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
+import cn.curatorjin.smsweapon.anno.SmsMachine;
+import cn.curatorjin.smsweapon.blocks.SmithBlock;
 import cn.curatorjin.smsweapon.entity.tile.impl.SmithTableTEntity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -33,8 +35,30 @@ import java.util.List;
  * @author : 0newing
  * @version : 1.0
  */
-public class SmithTable extends Block implements ITileEntityProvider
+
+@SmsMachine
+public class SmithTable extends SmithBlock implements ITileEntityProvider
 {
+
+    /**
+     * 本类实例对象
+     */
+    private static SmithTable INSTANCE;
+
+    /**
+     * 获取实体对象(单例)
+     *
+     * @return 实例
+     */
+    @Override
+    public SmithBlock getInstance()
+    {
+        if (null == INSTANCE)
+        {
+            INSTANCE = new SmithTable();
+        }
+        return INSTANCE;
+    }
 
     /**
      * 顶部材质
@@ -46,7 +70,7 @@ public class SmithTable extends Block implements ITileEntityProvider
      */
     private static IIcon TINKER_SIDE;
 
-    SmithTable()
+    public SmithTable()
     {
         super(Material.rock);
 
@@ -106,8 +130,8 @@ public class SmithTable extends Block implements ITileEntityProvider
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      *
-     * @param world     世界实例
-     * @param metaData  方块MetaData
+     * @param world    世界实例
+     * @param metaData 方块MetaData
      */
     @Override
     public TileEntity createNewTileEntity(World world, int metaData)

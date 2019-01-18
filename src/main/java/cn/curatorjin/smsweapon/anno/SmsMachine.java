@@ -1,9 +1,9 @@
 /*
  *
- * 文件名: SmsFlue.java
+ * 文件名: SmsMachine.java
  * 描述: 一句话描述
  * 创建人: 0newing
- * 时间: 2019/1/3  23:18
+ * 时间: 2019/1/19  0:00
  *
  */
 package cn.curatorjin.smsweapon.anno;
@@ -16,15 +16,15 @@ import java.lang.annotation.Target;
 
 
 /**
- * Class/Interface/Enum description
+ * 机器注解
  *
  * @author : 0newing
  * @version : 1.0
  */
 
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
 @Inherited
-public @interface SmsFlue
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface SmsMachine
 {
 }

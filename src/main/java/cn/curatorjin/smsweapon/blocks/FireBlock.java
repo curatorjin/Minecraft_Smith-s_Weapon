@@ -1,7 +1,6 @@
 package cn.curatorjin.smsweapon.blocks;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
-import cn.curatorjin.smsweapon.anno.SmsBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -13,11 +12,30 @@ import net.minecraft.block.material.Material;
  * @version 1.0
  */
 
-@SmsBlock
-class FireBlock extends Block
+public class FireBlock extends SmithBlock
 {
 
-    FireBlock()
+    /**
+     * 单例对象
+     */
+    private static FireBlock INSTANCE;
+
+    /**
+     * 获取实体对象(单例)
+     *
+     * @return 实例
+     */
+    @Override
+    public SmithBlock getInstance()
+    {
+        if (null == INSTANCE)
+        {
+            INSTANCE = new FireBlock();
+        }
+        return INSTANCE;
+    }
+
+    public FireBlock()
     {
         super(Material.iron);
         this.setCreativeTab(SmithsWeapon.getSmithsWeaponTab());
@@ -29,4 +47,5 @@ class FireBlock extends Block
         setHarvestLevel("pickaxe", 2);
         setStepSound(Block.soundTypeStone);
     }
+
 }

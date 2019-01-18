@@ -2,10 +2,10 @@ package cn.curatorjin.smsweapon.items.moulds.impl;
 
 import cn.curatorjin.smsweapon.SmithsWeapon;
 import cn.curatorjin.smsweapon.anno.SmsMould;
-import cn.curatorjin.smsweapon.items.SmsItems;
+import cn.curatorjin.smsweapon.items.SmithItem;
 import cn.curatorjin.smsweapon.items.moulds.Mould;
 import cn.curatorjin.smsweapon.items.weapons.Weapon;
-import net.minecraft.item.Item;
+import cn.curatorjin.smsweapon.items.weapons.impl.sword.FireSword;
 import net.minecraft.item.ItemStack;
 
 
@@ -16,8 +16,28 @@ import net.minecraft.item.ItemStack;
  */
 
 @SmsMould
-public class SwordMould extends Item implements Mould
+public class SwordMould extends SmithItem implements Mould
 {
+
+    /**
+     * 本类实例对象
+     */
+    private static SwordMould INSTANCE;
+
+    /**
+     * 获取实例
+     *
+     * @return 本身的实例对象(单例)
+     */
+    @Override
+    public SmithItem getInstance()
+    {
+        if (null == INSTANCE)
+        {
+            INSTANCE = new SwordMould();
+        }
+        return INSTANCE;
+    }
 
     public SwordMould()
     {
@@ -30,7 +50,7 @@ public class SwordMould extends Item implements Mould
     @Override
     public Weapon synthetic(ItemStack... itemStack)
     {
-        return SmsItems.getFireSword();
+        return (Weapon)new FireSword().getInstance();
     }
 
 }

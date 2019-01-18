@@ -8,8 +8,15 @@
  */
 package cn.curatorjin.smsweapon.blocks;
 
+import cn.curatorjin.smsweapon.anno.SmsBlock;
+import cn.curatorjin.smsweapon.utils.PackageScanner;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,21 +27,40 @@ import net.minecraft.block.Block;
  */
 public class SmsBlocks
 {
-    /**
-     * 烈焰岩
-     */
-    private static FireBlock FIRE_BLOCK;
 
     /**
-     * 注册所有物品，供主类调用
+     * 方块对应的包路径
+     */
+    private static final String PACKAGE_PATH = "cn.curatorjin.smsweapon.blocks";
+
+    /**
+     * 注册所有物品
      */
     public static void registerBlocks()
     {
-        //创建实例
-        FIRE_BLOCK = new FireBlock();
-
-        //注册实例
-        registerSmsBlock(FIRE_BLOCK);
+        List<Class> list = new ArrayList<Class>();
+        PackageScanner.getAllClasses(list, PACKAGE_PATH);
+        for (Class<?> c : list)
+        {
+            try
+            {
+                Annotation tag = c.getAnnotation(SmsBlock.class);
+                if (tag == null)
+                {
+                    continue;
+                }
+                Method m = c.getDeclaredMethod("getInstance");
+                Object object = m.invoke(c.newInstance());
+                if (object instanceof Block)
+                {
+                    registerSmsBlock((Block)object);
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -44,11 +70,7 @@ public class SmsBlocks
      */
     private static void registerSmsBlock(Block block)
     {
-        GameRegistry.registerBlock(block,block.getUnlocalizedName().substring(5));
+        GameRegistry.registerBlock(block, block.getUnlocalizedName().substring(5));
     }
 
-    public static FireBlock getFireBlock()
-    {
-        return FIRE_BLOCK;
-    }
 }
