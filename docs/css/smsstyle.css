@@ -1,0 +1,19 @@
+.card{
+	padding-top: 25px;
+	font-size: 28px;
+	color: rgba(255, 255, 255, 1);
+	height: 100px;
+	width: 100%;
+	background-color: #A04133;
+}
+
+.card:hover{
+	color: rgba(0, 0, 0, 0.9);
+	text-decoration: none;
+	background-color: #159957;
+	border-color: rgba(255, 255, 255, 0.3)
+}
+
+.sideBar{
+	float: left;
+}

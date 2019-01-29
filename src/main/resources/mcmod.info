@@ -1,6 +1,6 @@
 [
 {
-  "modid": "smsweaponmod",
+  "modid": "smsweapon",
   "name": "Smith's Weapon",
   "description": "一个仍在开发中的武器模组",
   "version": "${version}",
