@@ -9,6 +9,7 @@
 package io.github.curatorjin.smsweapon.entity.tile;
 
 import io.github.curatorjin.smsweapon.anno.SmsEntity;
+import io.github.curatorjin.smsweapon.anno.SmsNoReg;
 import net.minecraft.tileentity.TileEntity;
 
 
@@ -19,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
  * @version : 1.0
  */
 
+@SmsNoReg
 @SmsEntity
 public abstract class SmithTileEntity extends TileEntity
 {

@@ -9,6 +9,7 @@
 package io.github.curatorjin.smsweapon.blocks;
 
 import io.github.curatorjin.smsweapon.anno.SmsBlock;
+import io.github.curatorjin.smsweapon.anno.SmsNoReg;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -20,6 +21,7 @@ import net.minecraft.block.material.Material;
  * @version : 1.0
  */
 
+@SmsNoReg
 @SmsBlock
 public abstract class SmithBlock extends Block
 {

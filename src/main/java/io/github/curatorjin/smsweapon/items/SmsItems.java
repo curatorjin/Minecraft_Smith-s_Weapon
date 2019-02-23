@@ -9,6 +9,7 @@
 package io.github.curatorjin.smsweapon.items;
 
 import io.github.curatorjin.smsweapon.anno.SmsItem;
+import io.github.curatorjin.smsweapon.anno.SmsNoReg;
 import io.github.curatorjin.smsweapon.utils.PackageScanner;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
@@ -38,7 +39,7 @@ public class SmsItems
      */
     public static void registerSmsItems()
     {
-        List<Class> list = new ArrayList<Class>();
+        List<Class> list = new ArrayList<>();
         PackageScanner.getAllClasses(list, PACKAGE_PATH);
         for (Class<?> c : list)
         {
@@ -49,6 +50,12 @@ public class SmsItems
                 {
                     continue;
                 }
+                tag = c.getAnnotation(SmsNoReg.class);
+                if (tag != null)
+                {
+                    continue;
+                }
+
                 Method m = c.getDeclaredMethod("getInstance");
                 Object object = m.invoke(c.newInstance());
                 if (object instanceof Item)
