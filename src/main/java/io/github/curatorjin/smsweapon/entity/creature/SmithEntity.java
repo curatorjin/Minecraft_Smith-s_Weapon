@@ -9,6 +9,7 @@
 package io.github.curatorjin.smsweapon.entity.creature;
 
 import io.github.curatorjin.smsweapon.anno.SmsEntity;
+import io.github.curatorjin.smsweapon.anno.SmsNoReg;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
@@ -20,6 +21,7 @@ import net.minecraft.world.World;
  * @version : 1.0
  */
 
+@SmsNoReg
 @SmsEntity
 public abstract class SmithEntity extends Entity
 {

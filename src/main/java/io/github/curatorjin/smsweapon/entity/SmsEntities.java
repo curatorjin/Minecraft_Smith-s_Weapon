@@ -10,6 +10,7 @@ package io.github.curatorjin.smsweapon.entity;
 
 import io.github.curatorjin.smsweapon.SmithsWeapon;
 import io.github.curatorjin.smsweapon.anno.SmsEntity;
+import io.github.curatorjin.smsweapon.anno.SmsNoReg;
 import io.github.curatorjin.smsweapon.entity.creature.SmithEntity;
 import io.github.curatorjin.smsweapon.entity.tile.SmithTileEntity;
 import io.github.curatorjin.smsweapon.utils.PackageScanner;
@@ -45,7 +46,7 @@ public class SmsEntities
      */
     public static void registerAllEntities()
     {
-        List<Class> list = new ArrayList<Class>();
+        List<Class> list = new ArrayList<>();
         PackageScanner.getAllClasses(list, PACKAGE_PATH);
         for (Class<?> c : list)
         {
@@ -56,6 +57,12 @@ public class SmsEntities
                 {
                     continue;
                 }
+                tag = c.getAnnotation(SmsNoReg.class);
+                if (tag != null)
+                {
+                    continue;
+                }
+
                 Method m = c.getDeclaredMethod("getInstance");
                 Object object = m.invoke(c.newInstance());
                 if (object instanceof SmithTileEntity)

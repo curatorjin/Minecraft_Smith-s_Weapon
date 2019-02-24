@@ -9,6 +9,7 @@
 package io.github.curatorjin.smsweapon.blocks;
 
 import io.github.curatorjin.smsweapon.anno.SmsBlock;
+import io.github.curatorjin.smsweapon.anno.SmsNoReg;
 import io.github.curatorjin.smsweapon.utils.PackageScanner;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -38,7 +39,7 @@ public class SmsBlocks
      */
     public static void registerBlocks()
     {
-        List<Class> list = new ArrayList<Class>();
+        List<Class> list = new ArrayList<>();
         PackageScanner.getAllClasses(list, PACKAGE_PATH);
         for (Class<?> c : list)
         {
@@ -49,6 +50,12 @@ public class SmsBlocks
                 {
                     continue;
                 }
+                tag = c.getAnnotation(SmsNoReg.class);
+                if (tag != null)
+                {
+                    continue;
+                }
+
                 Method m = c.getDeclaredMethod("getInstance");
                 Object object = m.invoke(c.newInstance());
                 if (object instanceof Block)

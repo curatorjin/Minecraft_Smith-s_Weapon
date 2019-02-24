@@ -9,6 +9,7 @@
 package io.github.curatorjin.smsweapon.items;
 
 import io.github.curatorjin.smsweapon.anno.SmsItem;
+import io.github.curatorjin.smsweapon.anno.SmsNoReg;
 import net.minecraft.item.Item;
 
 
@@ -19,6 +20,7 @@ import net.minecraft.item.Item;
  * @version : 1.0
  */
 
+@SmsNoReg
 @SmsItem
 public abstract class SmithItem extends Item
 {
