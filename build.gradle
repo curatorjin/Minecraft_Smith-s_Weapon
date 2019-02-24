@@ -64,3 +64,11 @@ processResources
         exclude 'mcmod.info'
     }
 }
+
+uploadArchives{
+    repositories{
+        flatDir{
+            dirs 'docs/data/modJar'
+        }
+    }
+}
