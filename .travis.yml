@@ -1,0 +1,11 @@
+language: java
+sudo: false
+jdk:
+- oraclejdk8
+
+before_install: chmod +x gradlew
+
+script: ./gradlew check
+
+after_success:
+  - ./gradlew uploadArchives

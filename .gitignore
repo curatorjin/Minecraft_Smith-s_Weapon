@@ -3,3 +3,5 @@ eclipse
 .gradle
 out
 *.iml
+build
+out
