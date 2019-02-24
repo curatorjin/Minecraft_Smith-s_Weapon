@@ -6,6 +6,3 @@ jdk:
 before_install: chmod +x gradlew
 
 script: ./gradlew check
-
-after_success:
-  - ./gradlew uploadArchives
