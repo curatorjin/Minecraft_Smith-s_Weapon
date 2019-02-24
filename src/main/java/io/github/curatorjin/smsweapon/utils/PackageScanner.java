@@ -11,9 +11,13 @@ package io.github.curatorjin.smsweapon.utils;
 import io.github.curatorjin.smsweapon.SmithsWeapon;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 
 /**
@@ -35,6 +39,81 @@ public final class PackageScanner
      * @param packagePath 包路径
      */
     public static void getAllClasses(List<Class> list, String packagePath)
+    {
+        String[] jarPathInfo = PackageScanner.class.getProtectionDomain().getCodeSource().getLocation().getPath().split(
+            "!");
+        if (jarPathInfo.length == 1)
+        {
+            getAllClassesInFile(list, packagePath);
+        }
+        else
+        {
+            JarFile jarFile = null;
+
+            try
+            {
+                jarFile = new JarFile(jarPathInfo[0].substring(jarPathInfo[0].indexOf("/")));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            getAllClassesInJar(list, packagePath, jarFile);
+        }
+
+    }
+
+    /**
+     * 获取Jar包中某包下的所有类
+     *
+     * @param list        返回的Class集合
+     * @param packagePath 包路径
+     * @param jarFile     Jar文件
+     */
+    private static void getAllClassesInJar(List<Class> list, String packagePath, JarFile jarFile)
+    {
+        if (null == jarFile)
+        {
+            return;
+        }
+        ClassLoader loader = SmithsWeapon.class.getClassLoader();
+        packagePath = packagePath.replace(".","/");
+        Enumeration<JarEntry> entrys = jarFile.entries();
+        while (entrys.hasMoreElements())
+        {
+            JarEntry entry = entrys.nextElement();
+            String entryName = entry.getName();
+            if (entryName.endsWith(".class") && entryName.startsWith(packagePath))
+            {
+                entryName = entryName.replace("/", ".");
+                entryName = entryName.substring(0,entryName.lastIndexOf("."));
+                Class<?> clazz = null;
+
+                try
+                {
+                    clazz = loader.loadClass(entryName);
+                }
+                catch (ClassNotFoundException e)
+                {
+                    e.printStackTrace();
+                }
+
+                if (null != clazz)
+                {
+                    list.add(clazz);
+                }
+            }
+        }
+    }
+
+    /**
+     * 获取文件夹中的所有类
+     *
+     * @param list        返回的Class集合
+     * @param packagePath 包路径
+     */
+    private static void getAllClassesInFile(List<Class> list, String packagePath)
     {
         String filePath = packagePath.replace(".", "/");
         if (packagePath.endsWith(".class"))
@@ -75,10 +154,9 @@ public final class PackageScanner
         {
             if (file.getName().endsWith(".class"))
             {
-                Class<?> clazz = null;
                 try
                 {
-                    clazz = SmithsWeapon.class.getClassLoader().loadClass(
+                    Class<?> clazz = SmithsWeapon.class.getClassLoader().loadClass(
                         packagePath.replace(".class", ""));
                     list.add(clazz);
                 }
@@ -88,5 +166,6 @@ public final class PackageScanner
                 }
             }
         }
+
     }
 }
