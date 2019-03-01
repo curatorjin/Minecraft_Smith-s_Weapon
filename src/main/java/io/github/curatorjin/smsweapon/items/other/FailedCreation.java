@@ -8,6 +8,7 @@
  */
 package io.github.curatorjin.smsweapon.items.other;
 
+import io.github.curatorjin.smsweapon.SmithsWeapon;
 import io.github.curatorjin.smsweapon.items.SmithItem;
 
 
@@ -39,5 +40,13 @@ public class FailedCreation extends SmithItem
             INSTANCE = new FailedCreation();
         }
         return INSTANCE;
+    }
+
+    public FailedCreation()
+    {
+        super();
+        this.setUnlocalizedName("failedCreation");
+        this.setTextureName("smsweaponmod:failedCreation");
+        this.setCreativeTab(SmithsWeapon.getSmithsWeaponTab());
     }
 }

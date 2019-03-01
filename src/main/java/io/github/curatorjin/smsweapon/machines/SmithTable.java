@@ -88,8 +88,9 @@ public class SmithTable extends SmithBlock implements ITileEntityProvider
     /**
      * Gets the block's texture. Args: side, meta
      *
-     * @param side ddd
-     * @param meta sd
+     * @param side  方块的面
+     * @param meta  MetaData
+     * @return      该面的材质
      */
     @Override
     public IIcon getIcon(int side, int meta)
@@ -132,6 +133,7 @@ public class SmithTable extends SmithBlock implements ITileEntityProvider
      *
      * @param world    世界实例
      * @param metaData 方块MetaData
+     * @return         方块的Tile实体
      */
     @Override
     public TileEntity createNewTileEntity(World world, int metaData)

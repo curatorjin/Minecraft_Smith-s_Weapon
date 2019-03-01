@@ -40,7 +40,8 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
     /**
      * 某个面可以访问到的物品槽索引数组
      *
-     * @param side 访问的面
+     * @param   side    访问的面
+     * @return          索引槽数组
      */
     @Override
     public int[] getAccessibleSlotsFromSide(int side)
@@ -54,6 +55,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
      * @param slot      物品槽
      * @param itemStack 物品
      * @param side      面
+     * @return          是否可以输出
      */
     @Override
     public boolean canInsertItem(int slot, ItemStack itemStack, int side)
@@ -71,6 +73,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
      * @param slot      物品槽
      * @param itemStack 物品
      * @param side      面
+     * @return          是否可以输出
      */
     @Override
     public boolean canExtractItem(int slot, ItemStack itemStack, int side)
@@ -80,6 +83,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
 
     /**
      * 物品栏中包含的物品槽数目(容量)
+     * @return 容量
      */
     @Override
     public int getSizeInventory()
@@ -91,6 +95,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
      * 某个物品槽上的物品
      *
      * @param index 物品槽索引
+     * @return      物品槽上的物品
      */
     @Override
     public ItemStack getStackInSlot(int index)
@@ -103,6 +108,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
      *
      * @param slot   物品槽
      * @param number 数量
+     * @return       移除掉的物品
      */
     @Override
     public ItemStack decrStackSize(int slot, int number)
@@ -121,7 +127,8 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
     /**
      * 当Container被关闭时对每一个slot进行的操作，返回值为物品掉落
      *
-     * @param slot 物品槽
+     * @param slot  物品槽
+     * @return      掉落的物品
      */
     @Override
     public ItemStack getStackInSlotOnClosing(int slot)
@@ -158,6 +165,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
 
     /**
      * 获取物品栏名称
+     * @return 物品栏名称
      */
     @Override
     public String getInventoryName()
@@ -167,6 +175,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
 
     /**
      * 判断物品栏是否已被命名
+     * @return 是否被命名
      */
     @Override
     public boolean hasCustomInventoryName()
@@ -176,6 +185,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
 
     /**
      * 物品槽的最大容量
+     * @return 最大容量
      */
     @Override
     public int getInventoryStackLimit()
@@ -187,6 +197,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
      * Do not make give this method the name canInteractWith because it clashes with Container
      *
      * @param player 玩家实体
+     * @return       玩家是否可用
      */
     @Override
     public boolean isUseableByPlayer(EntityPlayer player)
@@ -213,6 +224,7 @@ public class SmithTableTEntity extends SmithTileEntity implements ISidedInventor
      *
      * @param slot      物品槽
      * @param itemStack 物品
+     * @return          是否可以输入
      */
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack itemStack)
