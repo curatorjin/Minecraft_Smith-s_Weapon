@@ -75,7 +75,6 @@ checkstyle {
     configProperties.projectDir = project.projectDir
     ignoreFailures = false
 }
-check.dependsOn 'checkstyle'
 
 uploadArchives {
     repositories {
