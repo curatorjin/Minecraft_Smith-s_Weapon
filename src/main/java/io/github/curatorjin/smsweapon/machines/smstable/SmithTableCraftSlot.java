@@ -110,7 +110,8 @@ public class SmithTableCraftSlot extends Slot
     }
 
     @Override
-    public void onPickupFromSlot(EntityPlayer player, ItemStack itemStack) {
+    public void onPickupFromSlot(EntityPlayer player, ItemStack itemStack) 
+    {
         super.onPickupFromSlot(player, itemStack);
     }
 
