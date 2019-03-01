@@ -103,8 +103,7 @@ public class SmithTableContainer extends Container
      * @return 返回物品
      */
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex)
-    {
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
         ItemStack itemstack = null;
         Slot slot = (Slot)this.inventorySlots.get(slotIndex);
 
