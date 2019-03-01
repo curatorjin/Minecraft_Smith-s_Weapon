@@ -66,6 +66,7 @@ public class SmithTableCraftSlot extends Slot
      * 物品是否可以放入物品槽
      *
      * @param itemStack 待检查的物品
+     * @return          是否可以放入物品槽
      */
     @Override
     public boolean isItemValid(ItemStack itemStack)
@@ -100,6 +101,7 @@ public class SmithTableCraftSlot extends Slot
      * 物品槽内的物品是否可以被取出
      *
      * @param player 玩家
+     * @return       是否可以被取出
      */
     @Override
     public boolean canTakeStack(EntityPlayer player)
@@ -108,8 +110,7 @@ public class SmithTableCraftSlot extends Slot
     }
 
     @Override
-    public void onPickupFromSlot(EntityPlayer player, ItemStack itemStack)
-    {
+    public void onPickupFromSlot(EntityPlayer player, ItemStack itemStack) {
         super.onPickupFromSlot(player, itemStack);
     }
 

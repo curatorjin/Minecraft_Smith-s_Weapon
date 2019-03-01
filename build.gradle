@@ -1,5 +1,7 @@
 buildscript {
     repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenLocal()
         mavenCentral()
         maven {
             name = "forge"
@@ -16,11 +18,11 @@ buildscript {
 }
 
 apply plugin: 'forge'
-
-
+apply plugin: 'java'
+apply plugin: 'checkstyle'
 
 version = "1.0"
-group= "io.github.curatorjin.smsweapon" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "io.github.curatorjin.smsweapon" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "smsweapon"
 
 sourceCompatibility = 1.8
@@ -33,11 +35,12 @@ minecraft {
 }
 
 dependencies {
+    compile 'com.alibaba:fastjson:1.2.49'
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
-      
+
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
@@ -49,30 +52,35 @@ dependencies {
 }
 
 processResources
-{
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+        {
+            // this will ensure that this task is redone when the versions change.
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
 
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
+            // replace stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
+
+                // replace version and mcversion
+                expand 'version': project.version, 'mcversion': project.minecraft.version
+            }
+
+            // copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }
+
+checkstyle {
+    configProperties.projectDir = project.projectDir
+    ignoreFailures = false
 }
+check.dependsOn 'checkstyle'
 
-uploadArchives{
-    repositories{
-        flatDir{
+uploadArchives {
+    repositories {
+        flatDir {
             dirs 'docs/data/modJar'
         }
     }
 }
-

@@ -13,6 +13,10 @@
 		<script type="text/javascript" src="js/popper.min.js"></script>
 		<script type="text/javascript" src="js/vue.min.js"></script>
 		<script type="text/javascript" src="js/SmsWeapon.js"></script>
+		<!-- 加载数据文件 -->
+		<script src="data/Blocks.tx"></script>
+		<script src="data/Items.tx"></script>
+		<script src="data/Weapons.tx"></script>
 	</head>
 	<body>
 		<section class="page-header">
@@ -27,31 +31,47 @@
 					<a href="#" class="btn">加入测试服</a>
 				</div>
 			</div>
-
 		</section>
 
-		<div class="sideBar">
-			
-		</div>
-		
 		<section class="main-content">
 			<h1 id="minecraft-smiths-weapon">Minecraft Smith’s Weapon</h1>
-			<p>Minecraft1.7.10武器模组</p>
-			<ul>
-				<li>新矿物
-					<ul>
-						<li>材料矿物</li>
-					</ul>
-				</li>
-				<li>新物品
-					<ul>
-						<li><strong>模具</strong>,用于武器的合成，武器以及工具需要先制造模具,再加入材料进行合成</li>
-					</ul>
-				</li>
-			</ul>
+			<div id="intro">
+				<p>Minecraft1.7.10武器模组</p>
+				<ul>
+					<li>新矿物
+						<ul>
+							<li>材料矿物</li>
+						</ul>
+					</li>
+					<li>新物品
+						<ul>
+							<li><strong>模具</strong>,用于武器的合成，武器以及工具需要先制造模具,再加入材料进行合成</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
 
 			<hr />
 
+			<div id="blocksDisplay" style="display: none;">
+				<li v-for="block in list">
+					{{block.name}}
+				</li>
+			</div>
+
+			<div id="itemsDisplay" style="display: none;">
+				<li v-for="item in list">
+					{{item.name}}
+				</li>
+			</div>
+
+			<div id="weaponsDisplay" style="display: none;">
+				<li v-for="weapon in list">
+					{{weapon.name}}
+				</li>
+			</div>
+
+			<hr />
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col">

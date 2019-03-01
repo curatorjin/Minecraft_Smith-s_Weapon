@@ -100,6 +100,7 @@ public class SmithTableContainer extends Container
      *
      * @param player    玩家实例
      * @param slotIndex 物品槽索引
+     * @return 返回物品
      */
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex)

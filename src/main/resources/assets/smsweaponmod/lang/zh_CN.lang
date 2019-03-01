@@ -14,5 +14,6 @@ item.spearMould.name=枪模具
 item.hammerMould.name=锤模具
 item.daggerMould.name=匕首模具
 item.wandMould.name=杖模具
+item.failedCreation.name=失败作
 
 itemGroup.Smith's Weapon=Smith的武器
