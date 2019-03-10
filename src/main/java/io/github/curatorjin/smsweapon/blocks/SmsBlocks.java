@@ -8,15 +8,13 @@
  */
 package io.github.curatorjin.smsweapon.blocks;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import io.github.curatorjin.smsweapon.anno.SmsBlock;
 import io.github.curatorjin.smsweapon.anno.SmsNoReg;
-import io.github.curatorjin.smsweapon.utils.PackageScanner;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,17 +28,12 @@ public class SmsBlocks
 {
 
     /**
-     * 方块对应的包路径
+     * 注册所有的方块
+     *
+     * @param list 类集合
      */
-    private static final String PACKAGE_PATH = "io.github.curatorjin.smsweapon.blocks";
-
-    /**
-     * 注册所有物品
-     */
-    public static void registerBlocks()
+    public static void registerBlocks(List<Class> list)
     {
-        List<Class> list = new ArrayList<>();
-        PackageScanner.getAllClasses(list, PACKAGE_PATH);
         for (Class<?> c : list)
         {
             try

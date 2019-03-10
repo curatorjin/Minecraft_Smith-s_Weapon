@@ -1,19 +1,23 @@
 package io.github.curatorjin.smsweapon;
 
-import io.github.curatorjin.smsweapon.blocks.SmsBlocks;
-import io.github.curatorjin.smsweapon.entity.SmsEntities;
-import io.github.curatorjin.smsweapon.items.SmsItems;
-import io.github.curatorjin.smsweapon.items.SmsRecipes;
-import io.github.curatorjin.smsweapon.items.moulds.impl.SwordMould;
-import io.github.curatorjin.smsweapon.machines.SmsMachines;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import io.github.curatorjin.smsweapon.blocks.SmsBlocks;
+import io.github.curatorjin.smsweapon.entity.SmsEntities;
+import io.github.curatorjin.smsweapon.items.SmsItems;
+import io.github.curatorjin.smsweapon.items.SmsRecipes;
+import io.github.curatorjin.smsweapon.items.moulds.impl.SwordMould;
+import io.github.curatorjin.smsweapon.machines.SmsMachines;
+import io.github.curatorjin.smsweapon.utils.PackageScanner;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -30,6 +34,11 @@ public class SmithsWeapon
      * MOD_ID
      */
     private static final String MODID = "smsweapon";
+
+    /**
+     * 包路径
+     */
+    private static final String PACKAGE_PATH = "io.github.curatorjin.smsweapon";
 
     public static String getMODID()
     {
@@ -73,11 +82,13 @@ public class SmithsWeapon
     @Mod.EventHandler
     public void preLoad(FMLPreInitializationEvent event)
     {
-        SmsBlocks.registerBlocks();
-        SmsItems.registerSmsItems();
-        SmsMachines.registerSmsMachines();
+        List<Class> everything = new LinkedList<>();
+        PackageScanner.getAllClasses(everything, PACKAGE_PATH);
+        SmsBlocks.registerBlocks(everything);
+        SmsItems.registerSmsItems(everything);
+        SmsMachines.registerSmsMachines(everything);
         SmsRecipes.registerSmsRecipes();
-        SmsEntities.registerAllEntities();
+        SmsEntities.registerAllEntities(everything);
     }
 
     /**
@@ -88,7 +99,7 @@ public class SmithsWeapon
     @Mod.EventHandler
     public void load(FMLInitializationEvent event)
     {
-        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE,PROXY);
+        NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, PROXY);
     }
 
     /**
