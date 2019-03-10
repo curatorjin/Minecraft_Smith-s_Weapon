@@ -51,6 +51,10 @@ dependencies {
 
 }
 
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+}
+
 processResources
         {
             // this will ensure that this task is redone when the versions change.

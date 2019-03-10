@@ -8,18 +8,16 @@
  */
 package io.github.curatorjin.smsweapon.entity;
 
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 import io.github.curatorjin.smsweapon.SmithsWeapon;
 import io.github.curatorjin.smsweapon.anno.SmsEntity;
 import io.github.curatorjin.smsweapon.anno.SmsNoReg;
 import io.github.curatorjin.smsweapon.entity.creature.SmithEntity;
 import io.github.curatorjin.smsweapon.entity.tile.SmithTileEntity;
-import io.github.curatorjin.smsweapon.utils.PackageScanner;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,10 +29,6 @@ import java.util.List;
  */
 public class SmsEntities
 {
-    /**
-     * 实体对应的包路径
-     */
-    private static final String PACKAGE_PATH = "io.github.curatorjin.smsweapon.entity";
 
     /**
      * 默认交互范围
@@ -43,11 +37,11 @@ public class SmsEntities
 
     /**
      * 注册所有的实体
+     *
+     * @param list 类集合
      */
-    public static void registerAllEntities()
+    public static void registerAllEntities(List<Class> list)
     {
-        List<Class> list = new ArrayList<>();
-        PackageScanner.getAllClasses(list, PACKAGE_PATH);
         for (Class<?> c : list)
         {
             try

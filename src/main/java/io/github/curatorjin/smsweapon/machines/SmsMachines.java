@@ -8,16 +8,14 @@
  */
 package io.github.curatorjin.smsweapon.machines;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import io.github.curatorjin.smsweapon.anno.SmsMachine;
 import io.github.curatorjin.smsweapon.anno.SmsNoReg;
-import io.github.curatorjin.smsweapon.utils.PackageScanner;
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,17 +29,12 @@ public class SmsMachines
 {
 
     /**
-     * 机器对应的包路径
-     */
-    private static final String PACKAGE_PATH = "io.github.curatorjin.smsweapon.machines";
-
-    /**
      * 注册所有的机器、供主类调用
+     *
+     * @param list 类集合
      */
-    public static void registerSmsMachines()
+    public static void registerSmsMachines(List<Class> list)
     {
-        List<Class> list = new ArrayList<>();
-        PackageScanner.getAllClasses(list, PACKAGE_PATH);
         for (Class<?> c : list)
         {
             try
